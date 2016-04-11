@@ -2,6 +2,7 @@ package nikborisov.com.github.play_simple;
 
 import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
@@ -12,12 +13,12 @@ import android.widget.SeekBar;
 
 public class MainActivity extends AppCompatActivity {
 
-    boolean isPlayed = false;
-
+    private final Handler handler = new Handler();
     private Button allSongs;
     private Button playFrom;
     private Button buttonPrev;
     private Button buttonStop;
+    private Button buttonPausePlay;
     private Button buttonNext;
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
@@ -36,12 +37,12 @@ public class MainActivity extends AppCompatActivity {
         playFrom = (Button) findViewById(R.id.playFromBut);
         buttonPrev = (Button) findViewById(R.id.prevSong);
         buttonStop = (Button) findViewById(R.id.stopSong);
+        buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
         buttonNext = (Button) findViewById(R.id.nextSong);
-
         mainPlayer = MediaPlayer.create(this, R.raw.doggystyle);
-
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         songSeeek.setMax(mainPlayer.getDuration());
+
         /**
          * annonymous class for seekbar action listener
          */
@@ -55,45 +56,54 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * switch play/stop Action
-     */
-    public void playPauseSwitch(View v) {
-        if (!isPlayed)
-            isPlayed = true;
-        else
-            isPlayed = false;
-        playStop();
-    }
-
-    /**
      * handler for seekBar
      */
-    private void changeCurrentSeek(View v) {
+    private void changeCurrentSeek(View view) {
         if (mainPlayer.isPlaying()) {
-            SeekBar sb = (SeekBar) v;
+            SeekBar sb = (SeekBar) view;
             mainPlayer.seekTo(sb.getProgress());
         }
     }
 
     /**
-     * method perform "play" and "pause" actions
+     * play and pause actions invoke
      */
-    private void playStop() {
-        if (isPlayed) {
+    public void pausePlay(View view) {
+        if (buttonPausePlay.getText().toString().equals(R.string.pauseString)) {
             try {
                 mainPlayer.start();
-
+                buttonPausePlay.setText(R.string.pauseString);
+                progress();
             } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
         } else {
-            try {
-                mainPlayer.pause();
-            } catch (IllegalStateException ex) {
-                ex.printStackTrace();
-            }
+            buttonPausePlay.setText(R.string.playString);
+            mainPlayer.pause();
         }
     }
+
+    /**
+     *stop
+     */
+    public void progress() {
+        songSeeek.setProgress(mainPlayer.getCurrentPosition());
+        if (mainPlayer.isPlaying()) {
+            Runnable runner = new Runnable() {
+                @Override
+                public void run() {
+                    progress();
+                }
+            };
+            handler.postDelayed(runner,500);
+        }
+        else {
+            mainPlayer.pause();
+            buttonPausePlay.setText(R.string.playString);
+            songSeeek.setProgress(mainPlayer.getCurrentPosition());
+        }
+    }
+
 
 
 }
