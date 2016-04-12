@@ -9,8 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.SeekBar;
 
-
-
 public class MainActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
     /**
      * handler for seekBar
      */
@@ -65,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
             mainPlayer.seekTo(sb.getProgress());
         }
     }
-
     /**
      * play and pause actions invoke
      * ! working now good
@@ -85,9 +81,8 @@ public class MainActivity extends AppCompatActivity {
             mainPlayer.pause();
         }
     }
-
     /**
-     *stop
+     *playing progress
      */
     public void progress() {
         songSeeek.setProgress(mainPlayer.getCurrentPosition());
@@ -105,6 +100,15 @@ public class MainActivity extends AppCompatActivity {
             buttonPausePlay.setText(R.string.playString);
             songSeeek.setProgress(mainPlayer.getCurrentPosition());
         }
+    }
+
+    /**
+     * method performing stop action
+     * must be fixed
+     */
+    public void stopAction(View view) {
+        mainPlayer.stop();
+        songSeeek.setProgress(0);
     }
 
 
