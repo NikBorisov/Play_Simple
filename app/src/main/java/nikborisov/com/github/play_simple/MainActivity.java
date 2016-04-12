@@ -107,7 +107,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * method performing stop action
-     * work correct
+     * work correct now
      */
     public void stopAction(View view) {
         songSeeek.setProgress(0);
