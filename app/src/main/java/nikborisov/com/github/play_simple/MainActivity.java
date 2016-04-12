@@ -68,13 +68,15 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * play and pause actions invoke
+     * ! working now
      */
     public void pausePlay(View view) {
-        if (buttonPausePlay.getText().toString().equals(R.string.pauseString)) {
+        if (buttonPausePlay.getText() == getString(R.string.playString)) {
             try {
                 mainPlayer.start();
-                buttonPausePlay.setText(R.string.pauseString);
+                buttonPausePlay.setText((R.string.pauseString));
                 progress();
+
             } catch (IllegalStateException ex) {
                 ex.printStackTrace();
             }
