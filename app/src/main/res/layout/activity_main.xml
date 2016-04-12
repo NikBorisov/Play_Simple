@@ -38,13 +38,15 @@
         android:layout_weight="7"
         android:orientation="vertical">
 
-        <ScrollView
+        <ListView
+            android:id="@+id/songList"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-        </ScrollView>
+        </ListView>
 
     </LinearLayout>
+
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="fill_parent"

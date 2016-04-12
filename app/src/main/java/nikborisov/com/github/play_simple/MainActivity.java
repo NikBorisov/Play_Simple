@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
@@ -17,6 +18,8 @@ public class MainActivity extends AppCompatActivity {
 
     private Button allSongs;
     private Button playFrom;
+
+    private ListView songList;
     private Button buttonPrev;
     private Button buttonStop;
     private Button buttonPausePlay;
@@ -73,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * play and pause actions invoke
-     * ! working now good
      */
     public void pausePlay(View view) {
         if (buttonPausePlay.getText() == getString(R.string.playString)) {
@@ -93,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
     /**
-     * playing progress
+     * playing progress, update seekbar condition and current playback time
      */
     public void progress() {
         songSeeek.setProgress(mainPlayer.getCurrentPosition());
@@ -120,5 +122,12 @@ public class MainActivity extends AppCompatActivity {
         songSeeek.setProgress(0);
         mainPlayer.seekTo(songSeeek.getProgress());
         mainPlayer.pause();
+    }
+
+    /**
+     * method init listView on main screen
+     */
+    public void initSongList() {
+        
     }
 }
