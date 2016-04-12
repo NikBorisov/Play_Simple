@@ -11,14 +11,10 @@ import android.widget.Button;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
-import com.google.android.gms.appindexing.AppIndex;
-import com.google.android.gms.common.api.GoogleApiClient;
-
-import java.util.concurrent.TimeUnit;
-
 public class MainActivity extends AppCompatActivity {
 
     private final Handler handler = new Handler();
+
     private Button allSongs;
     private Button playFrom;
     private Button buttonPrev;
@@ -28,20 +24,13 @@ public class MainActivity extends AppCompatActivity {
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
     private TextView totalPlayingTime;
-    /**
-     * ATTENTION: This was auto-generated to implement the App Indexing API.
-     * See https://g.co/AppIndexing/AndroidStudio for more information.
-     */
-    private GoogleApiClient client;
+    private TextView currentPlayingTime;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         initPlayer();
-        // ATTENTION: This was auto-generated to implement the App Indexing API.
-        // See https://g.co/AppIndexing/AndroidStudio for more information.
-        client = new GoogleApiClient.Builder(this).addApi(AppIndex.API).build();
     }
 
     public void initPlayer() {
@@ -58,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         songSeeek.setMax(mainPlayer.getDuration());
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
+        currentPlayingTime = (TextView) findViewById(R.id.currentTime);
         /**
          * annonymous class for seekbar action listener
          */
@@ -68,13 +58,9 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        totalPlayingTime.setText(String.format("%d : %d",
-                TimeUnit.MILLISECONDS.toMinutes(mainPlayer.getDuration()),
-                TimeUnit.MILLISECONDS.toSeconds(mainPlayer.getDuration()) -
-                        TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(mainPlayer.getDuration()))));
+        totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
 
     }
-
     /**
      * handler for seekBar
      */
@@ -104,15 +90,14 @@ public class MainActivity extends AppCompatActivity {
         } else {
             buttonPausePlay.setText(R.string.playString);
             mainPlayer.pause();
-
         }
     }
-
     /**
      * playing progress
      */
     public void progress() {
         songSeeek.setProgress(mainPlayer.getCurrentPosition());
+        currentPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getCurrentPosition()));
         if (mainPlayer.isPlaying()) {
             Runnable runner = new Runnable() {
                 @Override
@@ -127,7 +112,6 @@ public class MainActivity extends AppCompatActivity {
             songSeeek.setProgress(mainPlayer.getCurrentPosition());
         }
     }
-
     /**
      * method performing stop action
      * work correct now
@@ -138,4 +122,3 @@ public class MainActivity extends AppCompatActivity {
         mainPlayer.pause();
     }
 }
-
