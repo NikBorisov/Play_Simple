@@ -107,13 +107,11 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * method performing stop action
-     * must be fixed
+     * work correct
      */
     public void stopAction(View view) {
-        mainPlayer.stop();
         songSeeek.setProgress(0);
+        mainPlayer.seekTo(songSeeek.getProgress());
+        mainPlayer.pause();
     }
-
-
-
 }
