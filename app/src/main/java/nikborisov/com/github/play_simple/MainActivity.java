@@ -68,7 +68,7 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * play and pause actions invoke
-     * ! working now
+     * ! working now good
      */
     public void pausePlay(View view) {
         if (buttonPausePlay.getText() == getString(R.string.playString)) {
