@@ -69,6 +69,8 @@ public class MainActivity extends AppCompatActivity {
     public void pausePlay(View view) {
         if (buttonPausePlay.getText() == getString(R.string.playString)) {
             try {
+                //next line syns player with seekBar
+                mainPlayer.seekTo(songSeeek.getProgress());
                 mainPlayer.start();
                 buttonPausePlay.setText((R.string.pauseString));
                 progress();
@@ -79,6 +81,7 @@ public class MainActivity extends AppCompatActivity {
         } else {
             buttonPausePlay.setText(R.string.playString);
             mainPlayer.pause();
+
         }
     }
     /**
