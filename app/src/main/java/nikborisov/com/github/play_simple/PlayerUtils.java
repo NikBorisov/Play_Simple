@@ -1,8 +1,7 @@
 package nikborisov.com.github.play_simple;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.List;
+import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -20,8 +19,11 @@ public class PlayerUtils {
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millsTime)));
     }
 
+    /**
+     * return String[] of music files names, that represented in selected directory
+     */
     public static String[] getMediaFiles(File dirName) {
-        List<File> buffer = getMp3List(dirName);
+        ArrayList<File> buffer = fileNamesAgregator(dirName);
         String[] returned = new String[buffer.size()];
         for (int i = 0; i < buffer.size(); i++)
             returned[i] = buffer.get(i).getName();
@@ -29,19 +31,19 @@ public class PlayerUtils {
 
     }
 
-    public static List<File> getMp3List(File dirName) {
-        /*ArrayList<File> inFiles = new ArrayList<>();
-        File[] files = dirName.listFiles();
+    /**
+     * agregate all music files names in selected dir and subdirs
+     */
+    private static ArrayList<File> fileNamesAgregator(File parentDir) {
+        ArrayList<File> inFiles = new ArrayList<>();
+        File[] files = parentDir.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                inFiles.addAll(getMp3List(file));
-            } else {
-                if(file.getName().endsWith(".mp3")){
-                    inFiles.add(file);
-                }
+                inFiles.addAll(fileNamesAgregator(file));
+            } else if (file.getName().endsWith(".mp3")) {
+                inFiles.add(file);
             }
         }
-        return inFiles;*/
-        return Arrays.asList(dirName.listFiles());
+        return inFiles;
     }
 }

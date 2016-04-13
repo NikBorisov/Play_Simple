@@ -137,7 +137,7 @@ public class MainActivity extends AppCompatActivity {
 
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                PlayerUtils.getMediaFiles(new File("/storage")));
+                PlayerUtils.getMediaFiles(new File("/storage/emulated/0")));
         songListView.setAdapter(listAdapter);
     }
 }
