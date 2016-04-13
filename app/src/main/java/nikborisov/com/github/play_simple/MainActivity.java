@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         /**
          * initialize buttons, seekBar and media player
          */
+
         allSongs = (Button) findViewById(R.id.AllSongsBut);
         playFrom = (Button) findViewById(R.id.playFromBut);
         buttonPrev = (Button) findViewById(R.id.prevSong);
@@ -128,15 +129,15 @@ public class MainActivity extends AppCompatActivity {
         mainPlayer.seekTo(songSeeek.getProgress());
         mainPlayer.pause();
     }
-
     /**
      * method init listView on main screen
      */
     public void initSongList() {
         songListView = (ListView) findViewById(R.id.songList);
+
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                PlayerUtils.getMp3Files(new File("/storage")));
+                PlayerUtils.getMediaFiles(new File("/storage")));
         songListView.setAdapter(listAdapter);
     }
 }
