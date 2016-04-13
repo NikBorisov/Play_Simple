@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
     private Button allSongs;
     private Button playFrom;
 
-    private ListView songList;
     private Button buttonPrev;
     private Button buttonStop;
     private Button buttonPausePlay;
@@ -44,7 +43,6 @@ public class MainActivity extends AppCompatActivity {
         /**
          * initialize buttons, seekBar and media player
          */
-
         allSongs = (Button) findViewById(R.id.AllSongsBut);
         playFrom = (Button) findViewById(R.id.playFromBut);
         buttonPrev = (Button) findViewById(R.id.prevSong);
@@ -67,7 +65,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
-
         initSongList();
     }
     /**
@@ -134,10 +131,12 @@ public class MainActivity extends AppCompatActivity {
      */
     public void initSongList() {
         songListView = (ListView) findViewById(R.id.songList);
-
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 PlayerUtils.getMediaFiles(new File("/storage/emulated/0")));
         songListView.setAdapter(listAdapter);
+
+        songListView.setOnItemSelectedListener(new SelectedItem(mainPlayer, this));
+
     }
 }
