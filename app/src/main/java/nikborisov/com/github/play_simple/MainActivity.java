@@ -7,10 +7,13 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -28,6 +31,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mainPlayer;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
+    private ListView songListView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +67,7 @@ public class MainActivity extends AppCompatActivity {
         });
         totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
 
+        initSongList();
     }
     /**
      * handler for seekBar
@@ -128,6 +133,10 @@ public class MainActivity extends AppCompatActivity {
      * method init listView on main screen
      */
     public void initSongList() {
-        
+        songListView = (ListView) findViewById(R.id.songList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                PlayerUtils.getMp3Files(new File("/storage")));
+        songListView.setAdapter(listAdapter);
     }
 }
