@@ -32,7 +32,7 @@ public class PlayerUtils {
     }
 
     /**
-     * agregate all music files names in selected dir and subdirs
+     * agregate all music files in selected dir and subdirs
      */
     public static ArrayList<File> fileNamesAgregator(File parentDir) {
         ArrayList<File> inFiles = new ArrayList<>();

@@ -82,7 +82,21 @@ public class MainActivity extends AppCompatActivity {
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                if (mainPlayer.isPlaying()) {
+                    mainPlayer.stop();
+                }
                 mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[position]));
+                totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
+                songSeeek.setOnTouchListener(new View.OnTouchListener() {
+                    @Override
+                    public boolean onTouch(View view, MotionEvent currentEvent) {
+                        changeCurrentSeek(view);
+                        return false;
+                    }
+                });
+                mainPlayer.start();
+                buttonPausePlay.setText(R.string.pauseString);
+                pausePlay(buttonPausePlay);
             }
         });
 
