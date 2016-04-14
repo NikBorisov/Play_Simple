@@ -2,11 +2,13 @@ package nikborisov.com.github.play_simple;
 
 
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
@@ -17,11 +19,10 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
+    static final File ROOT_DIR_NAME = new File("/storage/emulated/0");
     private final Handler handler = new Handler();
-
     private Button allSongs;
     private Button playFrom;
-
     private Button buttonPrev;
     private Button buttonStop;
     private Button buttonPausePlay;
@@ -31,6 +32,9 @@ public class MainActivity extends AppCompatActivity {
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
     private ListView songListView;
+    private File[] currentDirAllFiles = PlayerUtils
+            .fileNamesAgregator(MainActivity.ROOT_DIR_NAME)
+            .toArray(new File[PlayerUtils.fileNamesAgregator(MainActivity.ROOT_DIR_NAME).size()]);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -65,7 +69,23 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
-        initSongList();
+        playerSetCurrentState();
+    }
+
+    public void playerSetCurrentState() {
+        songListView = (ListView) findViewById(R.id.songList);
+        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                PlayerUtils.getMediaFiles(ROOT_DIR_NAME));
+        songListView.setAdapter(listAdapter);
+
+        songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[position]));
+            }
+        });
+
     }
     /**
      * handler for seekBar
@@ -76,7 +96,6 @@ public class MainActivity extends AppCompatActivity {
             mainPlayer.seekTo(sb.getProgress());
         }
     }
-
     /**
      * play and pause actions invoke
      */
@@ -125,18 +144,5 @@ public class MainActivity extends AppCompatActivity {
         songSeeek.setProgress(0);
         mainPlayer.seekTo(songSeeek.getProgress());
         mainPlayer.pause();
-    }
-    /**
-     * method init listView on main screen
-     */
-    public void initSongList() {
-        songListView = (ListView) findViewById(R.id.songList);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                PlayerUtils.getMediaFiles(new File("/storage/emulated/0")));
-        songListView.setAdapter(listAdapter);
-
-        songListView.setOnItemSelectedListener(new SelectedItem(mainPlayer, this));
-
     }
 }

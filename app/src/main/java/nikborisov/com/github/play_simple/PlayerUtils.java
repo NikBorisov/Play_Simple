@@ -34,7 +34,7 @@ public class PlayerUtils {
     /**
      * agregate all music files names in selected dir and subdirs
      */
-    private static ArrayList<File> fileNamesAgregator(File parentDir) {
+    public static ArrayList<File> fileNamesAgregator(File parentDir) {
         ArrayList<File> inFiles = new ArrayList<>();
         File[] files = parentDir.listFiles();
         for (File file : files) {
