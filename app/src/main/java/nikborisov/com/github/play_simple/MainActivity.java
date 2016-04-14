@@ -29,12 +29,13 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonNext;
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
+    private TextView currentTitlename;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
     private ListView songListView;
-    private File[] currentDirAllFiles = PlayerUtils
+    private File[] currentDirAllFiles = ServiceProvider
             .fileNamesAgregator(MainActivity.dirName)
-            .toArray(new File[PlayerUtils.fileNamesAgregator(MainActivity.dirName).size()]);
+            .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
 
     public static void setDirName(File dirName) {
         MainActivity.dirName = dirName;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         mainPlayer = MediaPlayer.create(this, R.raw.doggystyle);
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         songSeeek.setMax(mainPlayer.getDuration());
+        currentTitlename = (TextView) findViewById(R.id.songTitle);
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
         currentPlayingTime = (TextView) findViewById(R.id.currentTime);
         /**
@@ -72,7 +74,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
-        totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
+        totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
+
         playerSetCurrentState();
     }
 
@@ -80,7 +83,7 @@ public class MainActivity extends AppCompatActivity {
         songListView = (ListView) findViewById(R.id.songList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                PlayerUtils.getMediaFiles(dirName));
+                ServiceProvider.getMediaFiles(dirName));
         songListView.setAdapter(listAdapter);
 
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -90,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
                     mainPlayer.stop();
                 }
                 mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[position]));
-                totalPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getDuration()));
+                totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
                 songSeeek.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent currentEvent) {
@@ -99,6 +102,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 mainPlayer.start();
+                //currentTitlename.setText();
                 buttonPausePlay.setText(R.string.pauseString);
                 pausePlay(buttonPausePlay);
             }
@@ -139,7 +143,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void progress() {
         songSeeek.setProgress(mainPlayer.getCurrentPosition());
-        currentPlayingTime.setText(PlayerUtils.formatPlaybackTime(mainPlayer.getCurrentPosition()));
+        currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
         if (mainPlayer.isPlaying()) {
             Runnable runner = new Runnable() {
                 @Override
