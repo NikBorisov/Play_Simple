@@ -163,4 +163,22 @@ public class MainActivity extends AppCompatActivity {
             mainPlayer.pause();
         }
     }
+
+    /**
+     * make "next" button action
+     *
+     * @param view
+     */
+    public void next(View view) {
+
+    }
+
+    /**
+     * make prev button action
+     *
+     * @param view
+     */
+    public void prev(View view) {
+
+    }
 }

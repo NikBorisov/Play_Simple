@@ -13,6 +13,11 @@ public class TitleExtractor {
     private String artist;
     private String album;
 
+    /**
+     * create TitelExtractor instance
+     *
+     * @param titleUri
+     */
     public TitleExtractor(Uri titleUri) {
         this.titleUri = titleUri;
         titleRetriver = new MediaMetadataRetriever();
