@@ -19,7 +19,7 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
-    static final File ROOT_DIR_NAME = new File("/storage/emulated/0");
+    private static File dirName = new File("/storage/emulated/0");
     private final Handler handler = new Handler();
     private Button allSongs;
     private Button playFrom;
@@ -33,8 +33,12 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentPlayingTime;
     private ListView songListView;
     private File[] currentDirAllFiles = PlayerUtils
-            .fileNamesAgregator(MainActivity.ROOT_DIR_NAME)
-            .toArray(new File[PlayerUtils.fileNamesAgregator(MainActivity.ROOT_DIR_NAME).size()]);
+            .fileNamesAgregator(MainActivity.dirName)
+            .toArray(new File[PlayerUtils.fileNamesAgregator(MainActivity.dirName).size()]);
+
+    public static void setDirName(File dirName) {
+        MainActivity.dirName = dirName;
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -76,7 +80,7 @@ public class MainActivity extends AppCompatActivity {
         songListView = (ListView) findViewById(R.id.songList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                PlayerUtils.getMediaFiles(ROOT_DIR_NAME));
+                PlayerUtils.getMediaFiles(dirName));
         songListView.setAdapter(listAdapter);
 
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

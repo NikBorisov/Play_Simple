@@ -15,8 +15,8 @@ import java.io.File;
 public class SelectedItem implements AdapterView.OnItemSelectedListener {
 
     private File[] currentDirAllFiles = PlayerUtils
-                    .fileNamesAgregator(MainActivity.ROOT_DIR_NAME)
-                        .toArray(new File[PlayerUtils.fileNamesAgregator(MainActivity.ROOT_DIR_NAME).size()]);
+                    .fileNamesAgregator(MainActivity.dirName)
+                        .toArray(new File[PlayerUtils.fileNamesAgregator(MainActivity.dirName).size()]);
     private MediaPlayer player;
     private Context context;
 

@@ -44,14 +44,22 @@
             android:layout_height="match_parent">
 
         </ListView>
-
     </LinearLayout>
+
 
     <SeekBar
         android:id="@+id/seekBar"
         android:layout_width="fill_parent"
         android:layout_height="0dp"
         android:layout_weight="1" />
+
+    <TextView
+        android:id="@+id/songTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="Title"
+        android:textSize="18sp" />
 
     <LinearLayout
         android:id="@+id/playingCurrentTimeBar"
@@ -69,18 +77,10 @@
             android:layout_height="match_parent"
             android:text="00:00" />
 
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/playingTotalTimeBar"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="0.5"
-        android:orientation="horizontal">
-
         <TextView
             android:layout_width="100dp"
             android:layout_height="match_parent"
+            android:layout_marginLeft="50dp"
             android:text="Total time:" />
 
         <TextView
@@ -88,7 +88,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:text="00:00" />
-
 
     </LinearLayout>
 
