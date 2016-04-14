@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonNext;
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
-    private TextView currentTitlename;
+    private TextView currentTitleInfo;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
     private ListView songListView;
@@ -45,40 +45,29 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initPlayer();
+        initButtons();
     }
 
-    public void initPlayer() {
-        /**
-         * initialize buttons, seekBar and media player
-         */
+    /**
+     * initialize buttons, seekBar and media player
+     */
+    public void initButtons() {
         allSongs = (Button) findViewById(R.id.AllSongsBut);
         playFrom = (Button) findViewById(R.id.playFromBut);
         buttonPrev = (Button) findViewById(R.id.prevSong);
         buttonStop = (Button) findViewById(R.id.stopSong);
         buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
         buttonNext = (Button) findViewById(R.id.nextSong);
-        mainPlayer = MediaPlayer.create(this, R.raw.doggystyle);
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
-        songSeeek.setMax(mainPlayer.getDuration());
-        currentTitlename = (TextView) findViewById(R.id.songTitle);
+        currentTitleInfo = (TextView) findViewById(R.id.songTitle);
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
         currentPlayingTime = (TextView) findViewById(R.id.currentTime);
-        /**
-         * annonymous class for seekbar action listener
-         */
-        songSeeek.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent currentEvent) {
-                changeCurrentSeek(view);
-                return false;
-            }
-        });
-        totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
-
         playerSetCurrentState();
     }
 
+    /**
+     * setup media player to valid state
+     */
     public void playerSetCurrentState() {
         songListView = (ListView) findViewById(R.id.songList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
@@ -89,11 +78,14 @@ public class MainActivity extends AppCompatActivity {
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mainPlayer.isPlaying()) {
-                    mainPlayer.stop();
+                if (mainPlayer != null) {
+                    if (mainPlayer.isPlaying()) {
+                        mainPlayer.stop();
+                    }
                 }
                 mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[position]));
                 totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
+                songSeeek.setMax(mainPlayer.getDuration());
                 songSeeek.setOnTouchListener(new View.OnTouchListener() {
                     @Override
                     public boolean onTouch(View view, MotionEvent currentEvent) {
@@ -102,7 +94,7 @@ public class MainActivity extends AppCompatActivity {
                     }
                 });
                 mainPlayer.start();
-                //currentTitlename.setText();
+                currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[position])).getTitleInfo());
                 buttonPausePlay.setText(R.string.pauseString);
                 pausePlay(buttonPausePlay);
             }
@@ -122,20 +114,22 @@ public class MainActivity extends AppCompatActivity {
      * play and pause actions invoke
      */
     public void pausePlay(View view) {
-        if (buttonPausePlay.getText() == getString(R.string.playString)) {
-            try {
-                //next line syns player with seekBar
-                mainPlayer.seekTo(songSeeek.getProgress());
-                mainPlayer.start();
-                buttonPausePlay.setText((R.string.pauseString));
-                progress();
+        if (mainPlayer != null) {
+            if (buttonPausePlay.getText() == getString(R.string.playString)) {
+                try {
+                    //next line syns player with seekBar
+                    mainPlayer.seekTo(songSeeek.getProgress());
+                    mainPlayer.start();
+                    buttonPausePlay.setText((R.string.pauseString));
+                    progress();
 
-            } catch (IllegalStateException ex) {
-                ex.printStackTrace();
+                } catch (IllegalStateException ex) {
+                    ex.printStackTrace();
+                }
+            } else {
+                buttonPausePlay.setText(R.string.playString);
+                mainPlayer.pause();
             }
-        } else {
-            buttonPausePlay.setText(R.string.playString);
-            mainPlayer.pause();
         }
     }
     /**
@@ -163,8 +157,10 @@ public class MainActivity extends AppCompatActivity {
      * work correct now
      */
     public void stopAction(View view) {
-        songSeeek.setProgress(0);
-        mainPlayer.seekTo(songSeeek.getProgress());
-        mainPlayer.pause();
+        if (mainPlayer != null) {
+            songSeeek.setProgress(0);
+            mainPlayer.seekTo(songSeeek.getProgress());
+            mainPlayer.pause();
+        }
     }
 }
