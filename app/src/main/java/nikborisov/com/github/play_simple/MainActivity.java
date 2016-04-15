@@ -4,6 +4,7 @@ package nikborisov.com.github.play_simple;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
@@ -19,16 +20,14 @@ import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static File dirName = new File("/storage/emulated/0");
+    private static File dirName = Environment.getExternalStorageDirectory();
     private final Handler handler = new Handler();
     private Button allSongs;
     private Button playFrom;
-    private Button buttonPrev;
-    private Button buttonStop;
     private Button buttonPausePlay;
-    private Button buttonNext;
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
+    private int currenSongNumber = 0;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
@@ -54,10 +53,7 @@ public class MainActivity extends AppCompatActivity {
     public void initButtons() {
         allSongs = (Button) findViewById(R.id.AllSongsBut);
         playFrom = (Button) findViewById(R.id.playFromBut);
-        buttonPrev = (Button) findViewById(R.id.prevSong);
-        buttonStop = (Button) findViewById(R.id.stopSong);
         buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
-        buttonNext = (Button) findViewById(R.id.nextSong);
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
@@ -78,25 +74,8 @@ public class MainActivity extends AppCompatActivity {
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if (mainPlayer != null) {
-                    if (mainPlayer.isPlaying()) {
-                        mainPlayer.stop();
-                    }
-                }
-                mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[position]));
-                totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
-                songSeeek.setMax(mainPlayer.getDuration());
-                songSeeek.setOnTouchListener(new View.OnTouchListener() {
-                    @Override
-                    public boolean onTouch(View view, MotionEvent currentEvent) {
-                        changeCurrentSeek(view);
-                        return false;
-                    }
-                });
-                mainPlayer.start();
-                currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[position])).getTitleInfo());
-                buttonPausePlay.setText(R.string.pauseString);
-                pausePlay(buttonPausePlay);
+                currenSongNumber = position;
+                startPlaying(position);
             }
         });
 
@@ -110,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
             mainPlayer.seekTo(sb.getProgress());
         }
     }
+
     /**
      * play and pause actions invoke
      */
@@ -132,6 +112,7 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
     /**
      * playing progress, update seekbar condition and current playback time
      */
@@ -152,6 +133,7 @@ public class MainActivity extends AppCompatActivity {
             songSeeek.setProgress(mainPlayer.getCurrentPosition());
         }
     }
+
     /**
      * method performing stop action
      * work correct now
@@ -165,20 +147,48 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * make "next" button action
-     *
-     * @param view
+     * make "next" onClick action
      */
     public void next(View view) {
-
+        if (currenSongNumber < currentDirAllFiles.length - 1) {
+            currenSongNumber++;
+            startPlaying(currenSongNumber);
+        }
     }
 
     /**
-     * make prev button action
-     *
-     * @param view
+     * make prev onClick action
      */
     public void prev(View view) {
-
+        if (currenSongNumber > 0) {
+            currenSongNumber--;
+            startPlaying(currenSongNumber);
+        }
     }
+
+    /**
+     * switch played song to next or prev
+     */
+    public void startPlaying(int songId) {
+        if (mainPlayer != null) {
+            if (mainPlayer.isPlaying()) {
+                mainPlayer.stop();
+            }
+        }
+        mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[songId]));
+        totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
+        songSeeek.setMax(mainPlayer.getDuration());
+        songSeeek.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent currentEvent) {
+                changeCurrentSeek(view);
+                return false;
+            }
+        });
+        mainPlayer.start();
+        currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
+        buttonPausePlay.setText(R.string.pauseString);
+        pausePlay(buttonPausePlay);
+    }
+
 }

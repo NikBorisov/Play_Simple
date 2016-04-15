@@ -112,6 +112,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="prev"
             android:text="Prev" />
 
         <Button
@@ -135,6 +136,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:onClick="next"
             android:text="next" />
 
     </LinearLayout>
