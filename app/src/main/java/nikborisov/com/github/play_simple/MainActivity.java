@@ -27,7 +27,7 @@ public class MainActivity extends AppCompatActivity {
     private Button buttonPausePlay;
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
-    private int currenSongNumber = 0;
+    private int currenSongNumber = -1;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
@@ -44,13 +44,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        initButtons();
+        playerInitialization();
     }
 
     /**
-     * initialize buttons, seekBar and media player
+     * setup Player to valid condition
      */
-    public void initButtons() {
+    public void playerInitialization() {
         allSongs = (Button) findViewById(R.id.AllSongsBut);
         playFrom = (Button) findViewById(R.id.playFromBut);
         buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
@@ -58,13 +58,6 @@ public class MainActivity extends AppCompatActivity {
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
         currentPlayingTime = (TextView) findViewById(R.id.currentTime);
-        playerSetCurrentState();
-    }
-
-    /**
-     * setup media player to valid state
-     */
-    public void playerSetCurrentState() {
         songListView = (ListView) findViewById(R.id.songList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -80,6 +73,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
     }
+
     /**
      * handler for seekBar
      */
