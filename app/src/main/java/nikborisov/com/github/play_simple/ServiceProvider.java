@@ -3,12 +3,16 @@ package nikborisov.com.github.play_simple;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by nikolay on 12.04.16.
  * class for audio player utils
  */
 public class ServiceProvider {
+
+    private static final Pattern checkIsFormatSuppoerted = Pattern.compile("([^\\s]+(\\.(?i)(mp3|wav|ogg|aac|flac))$)");
     /**
      * returns formatted playback time for total time view and current playback time view
      */
@@ -35,15 +39,22 @@ public class ServiceProvider {
      * agregate all music files in selected dir and subdirs
      */
     public static ArrayList<File> fileNamesAgregator(File parentDir) {
-        ArrayList<File> inFiles = new ArrayList<>();
+
+        ArrayList<File> filesList = new ArrayList<>();
         File[] files = parentDir.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                inFiles.addAll(fileNamesAgregator(file));
-            } else if (file.getName().endsWith(".mp3")) {
-                inFiles.add(file);
+                filesList.addAll(fileNamesAgregator(file));
+            } else {
+                Matcher findMatches = checkIsFormatSuppoerted.matcher(file.getName());
+                if (findMatches.find())
+                    filesList.add(file);
             }
         }
-        return inFiles;
+        return filesList;
+    }
+
+    public static ArrayList<File> dirsWithMusicAgregator(File parentDir) {
+        return null;
     }
 }
