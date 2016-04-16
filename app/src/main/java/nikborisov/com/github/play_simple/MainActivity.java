@@ -1,6 +1,7 @@
 package nikborisov.com.github.play_simple;
 
 
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -134,6 +135,7 @@ public class MainActivity extends AppCompatActivity {
         if (mainPlayer != null) {
             songSeeek.setProgress(0);
             mainPlayer.seekTo(songSeeek.getProgress());
+            currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
             mainPlayer.pause();
         }
     }
@@ -145,6 +147,9 @@ public class MainActivity extends AppCompatActivity {
         if (currenSongNumber < currentDirAllFiles.length - 1) {
             currenSongNumber++;
             startPlaying(currenSongNumber);
+        } else {
+            currenSongNumber = 0;
+            startPlaying(currenSongNumber);
         }
     }
 
@@ -154,6 +159,9 @@ public class MainActivity extends AppCompatActivity {
     public void prev(View view) {
         if (currenSongNumber > 0) {
             currenSongNumber--;
+            startPlaying(currenSongNumber);
+        } else {
+            currenSongNumber = currentDirAllFiles.length - 1;
             startPlaying(currenSongNumber);
         }
     }
@@ -177,10 +185,20 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+        currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
+        songSeeek.setProgress(mainPlayer.getCurrentPosition());
+
         mainPlayer.start();
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
         buttonPausePlay.setText(R.string.pauseString);
         pausePlay(buttonPausePlay);
+    }
+
+
+    public void openFileBrowser(View view) {
+        Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
+        startActivity(openBrowserIntent);
     }
 
 }
