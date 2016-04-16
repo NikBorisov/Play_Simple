@@ -22,7 +22,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static File dirName = Environment.getExternalStorageDirectory();
     private final Handler handler = new Handler();
-    private Button allSongs;
     private Button playFrom;
     private Button buttonPausePlay;
     private SeekBar songSeeek;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
      * setup Player to valid condition
      */
     public void playerInitialization() {
-        allSongs = (Button) findViewById(R.id.AllSongsBut);
         playFrom = (Button) findViewById(R.id.playFromBut);
         buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
         songSeeek = (SeekBar) findViewById(R.id.seekBar);

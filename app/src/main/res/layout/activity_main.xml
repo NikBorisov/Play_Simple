@@ -16,19 +16,13 @@
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/AllSongsBut"
+            android:id="@+id/selectDirBut"
             android:layout_width="0dp"
             android:layout_height="48dp"
             android:layout_weight="1"
-            android:text="All SONGS" />
+            android:text="play from..." />
 
-        <Button
-            android:id="@+id/playFromBut"
-            android:layout_width="0dp"
-            android:layout_height="48dp"
-            android:layout_alignLeft="@id/AllSongsBut"
-            android:layout_weight="1"
-            android:text="PLAY FROM..." />
+
     </LinearLayout>
 
     <LinearLayout
