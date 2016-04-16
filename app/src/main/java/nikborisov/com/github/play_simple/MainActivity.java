@@ -122,8 +122,15 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(runner, 500);
         } else {
             mainPlayer.pause();
-            buttonPausePlay.setText(R.string.playString);
+            buttonPausePlay.setText(R.string.pauseString);
             songSeeek.setProgress(mainPlayer.getCurrentPosition());
+            if (currenSongNumber < currentDirAllFiles.length - 1) { //if not last song in list played, go to next
+                currenSongNumber++;
+                songSeeek.setProgress(0);
+                currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(0));
+                startPlaying(currenSongNumber);
+            }
+
         }
     }
 
