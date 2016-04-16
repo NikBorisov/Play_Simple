@@ -1,7 +1,6 @@
 package nikborisov.com.github.play_simple;
 
 
-import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Bundle;
@@ -122,15 +121,8 @@ public class MainActivity extends AppCompatActivity {
             handler.postDelayed(runner, 500);
         } else {
             mainPlayer.pause();
-            buttonPausePlay.setText(R.string.pauseString);
+            buttonPausePlay.setText(R.string.playString);
             songSeeek.setProgress(mainPlayer.getCurrentPosition());
-            if (currenSongNumber < currentDirAllFiles.length - 1) { //if not last song in list played, go to next
-                currenSongNumber++;
-                songSeeek.setProgress(0);
-                currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(0));
-                startPlaying(currenSongNumber);
-            }
-
         }
     }
 
@@ -147,27 +139,21 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * make "next" onClick action (infinyty loop)
+     * make "next" onClick action
      */
     public void next(View view) {
         if (currenSongNumber < currentDirAllFiles.length - 1) {
             currenSongNumber++;
             startPlaying(currenSongNumber);
-        } else {
-            currenSongNumber = 0;
-            startPlaying(currenSongNumber);
         }
     }
 
     /**
-     * make "prev" onClick action (infinyty loop)
+     * make prev onClick action
      */
     public void prev(View view) {
         if (currenSongNumber > 0) {
             currenSongNumber--;
-            startPlaying(currenSongNumber);
-        } else {
-            currenSongNumber = currentDirAllFiles.length - 1;
             startPlaying(currenSongNumber);
         }
     }
@@ -195,11 +181,6 @@ public class MainActivity extends AppCompatActivity {
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
         buttonPausePlay.setText(R.string.pauseString);
         pausePlay(buttonPausePlay);
-    }
-
-    public void openFileBrowser(View view) {
-        Intent goToFileBrowserIntent = new Intent(this, FileBrowserActivity.class);
-        startActivity(goToFileBrowserIntent);
     }
 
 }
