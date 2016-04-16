@@ -103,6 +103,8 @@ public class MainActivity extends AppCompatActivity {
                 buttonPausePlay.setText(R.string.playString);
                 mainPlayer.pause();
             }
+        } else {
+            currenSongNumber++;
         }
     }
 
