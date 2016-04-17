@@ -103,8 +103,6 @@ public class MainActivity extends AppCompatActivity {
                 buttonPausePlay.setText(R.string.playString);
                 mainPlayer.pause();
             }
-        } else {
-            currenSongNumber++;
         }
     }
 
@@ -112,7 +110,7 @@ public class MainActivity extends AppCompatActivity {
      * playing progress, update seekbar condition and current playback time
      */
     public void progress() {
-        songSeeek.setProgress(mainPlayer.getCurrentPosition());
+            songSeeek.setProgress(mainPlayer.getCurrentPosition());
         currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
         if (mainPlayer.isPlaying()) {
             Runnable runner = new Runnable() {
@@ -193,7 +191,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainPlayer.start();
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
-        buttonPausePlay.setText(R.string.pauseString);
+        buttonPausePlay.setText(R.string.playString);
         pausePlay(buttonPausePlay);
     }
 
