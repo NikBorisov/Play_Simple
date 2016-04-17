@@ -1,5 +1,6 @@
 package nikborisov.com.github.play_simple;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -28,21 +29,22 @@ public class FileBrowserActivity extends AppCompatActivity {
     public void initDirList() {
         currentDir = Environment.getExternalStorageDirectory(); //start directory is root dir
         currentDirContent = currentDir.listFiles();//array represents all subdirs in current dir
-
         dirsView = (ListView) findViewById(R.id.currentDirFilesList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 ServiceProvider.getMediaFiles(currentDir, false));
         dirsView.setAdapter(listAdapter);
-
         dirsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
+                selectedDir = currentDirContent[position];
             }
         });
+    }
 
-
-
+    public void addAllToPlaylist(View view) {
+        MainActivity.changeCurrentDir(selectedDir);
+        Intent restartMainActivity = new Intent(this, MainActivity.class);
+        startActivity(restartMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

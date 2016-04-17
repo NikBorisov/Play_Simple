@@ -20,25 +20,28 @@ import android.widget.TextView;
 import java.io.File;
 
 public class MainActivity extends AppCompatActivity {
-
+    private static MediaPlayer mainPlayer;
     private static File dirName = Environment.getExternalStorageDirectory();
     private final Handler handler = new Handler();
     private Button buttonPausePlay;
     private SeekBar songSeeek;
-    private MediaPlayer mainPlayer;
     private int currenSongNumber = -1;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
     private ListView songListView;
-    private File[] currentDirAllFiles = ServiceProvider
-            .fileNamesAgregator(MainActivity.dirName)
-            .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
+    private File[] currentDirAllFiles;
 
-    public static void setDirName(File dirName) {
+    public static void changeCurrentDir(File dirName) {
         MainActivity.dirName = dirName;
+
+
     }
 
+    /*//temporary remove in final
+    public static MediaPlayer getPlayer() {
+        return mainPlayer;
+    }*/
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -59,6 +62,9 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 ServiceProvider.getMediaFiles(dirName, true));
+        currentDirAllFiles = ServiceProvider
+                .fileNamesAgregator(MainActivity.dirName)
+                .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
         songListView.setAdapter(listAdapter);
 
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
