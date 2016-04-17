@@ -209,5 +209,4 @@ public class MainActivity extends AppCompatActivity {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
         startActivity(openBrowserIntent);
     }
-
 }

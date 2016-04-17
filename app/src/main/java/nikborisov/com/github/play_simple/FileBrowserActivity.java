@@ -1,6 +1,5 @@
 package nikborisov.com.github.play_simple;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
@@ -31,8 +30,6 @@ public class FileBrowserActivity extends AppCompatActivity {
         currentDirContent = currentDir.listFiles();//array represents all subdirs in current dir
 
         dirsView = (ListView) findViewById(R.id.currentDirFilesList);
-        dirsView.setChoiceMode(ListView.CHOICE_MODE_SINGLE);
-
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 ServiceProvider.getMediaFiles(currentDir, false));
@@ -41,7 +38,7 @@ public class FileBrowserActivity extends AppCompatActivity {
         dirsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                dirsView.getChildAt(position).setBackgroundColor(Color.parseColor("#BBDEFB"));
+
             }
         });
 
