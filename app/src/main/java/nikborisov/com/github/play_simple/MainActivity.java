@@ -38,10 +38,10 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*//temporary remove in final
     public static MediaPlayer getPlayer() {
         return mainPlayer;
-    }*/
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -99,7 +99,6 @@ public class MainActivity extends AppCompatActivity {
 
         currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
         songSeeek.setProgress(mainPlayer.getCurrentPosition());
-
         mainPlayer.start();
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
         buttonPausePlay.setText(R.string.playString);
@@ -178,9 +177,11 @@ public class MainActivity extends AppCompatActivity {
      */
     public void prev(View view) {
         if (currenSongNumber > 0) {
+
             currenSongNumber--;
             startPlaying(currenSongNumber);
         } else {
+
             currenSongNumber = currentDirAllFiles.length - 1;
             startPlaying(currenSongNumber);
         }
@@ -194,6 +195,7 @@ public class MainActivity extends AppCompatActivity {
             currenSongNumber++;
             startPlaying(currenSongNumber);
         } else {
+
             currenSongNumber = 0;
             startPlaying(currenSongNumber);
         }
