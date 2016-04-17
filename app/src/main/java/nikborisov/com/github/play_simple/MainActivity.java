@@ -23,7 +23,6 @@ public class MainActivity extends AppCompatActivity {
 
     private static File dirName = Environment.getExternalStorageDirectory();
     private final Handler handler = new Handler();
-    private Button playFrom;
     private Button buttonPausePlay;
     private SeekBar songSeeek;
     private MediaPlayer mainPlayer;
@@ -51,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
      * setup Player to valid condition
      */
     public void playerInitialization() {
-        playFrom = (Button) findViewById(R.id.selectDirBut);
         buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);
@@ -71,6 +69,35 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+    }
+
+    /**
+     * initialize media player by new instance, start song playback
+     */
+    public void startPlaying(int songId) {
+        if (mainPlayer != null) {
+            if (mainPlayer.isPlaying()) {
+                mainPlayer.stop();
+            }
+        }
+        mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[songId]));
+        totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
+        songSeeek.setMax(mainPlayer.getDuration());
+        songSeeek.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent currentEvent) {
+                changeCurrentSeek(view);
+                return false;
+            }
+        });
+
+        currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
+        songSeeek.setProgress(mainPlayer.getCurrentPosition());
+
+        mainPlayer.start();
+        currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
+        buttonPausePlay.setText(R.string.playString);
+        pausePlay(buttonPausePlay);
     }
 
     /**
@@ -110,7 +137,20 @@ public class MainActivity extends AppCompatActivity {
      * playing progress, update seekbar condition and current playback time
      */
     public void progress() {
-            songSeeek.setProgress(mainPlayer.getCurrentPosition());
+        /**
+         * if song is over,start next, if playlist is over send message to user
+         */
+        if (mainPlayer.getCurrentPosition() == mainPlayer.getDuration()) {
+            if (currenSongNumber < currentDirAllFiles.length - 1) {
+                currenSongNumber++;
+                startPlaying(currenSongNumber);
+            } else {
+                currenSongNumber = 0;
+                startPlaying(currenSongNumber);
+            }
+        }
+
+        songSeeek.setProgress(mainPlayer.getCurrentPosition());
         currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
         if (mainPlayer.isPlaying()) {
             Runnable runner = new Runnable() {
@@ -128,15 +168,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * method performing stop action
-     * work correct now
+     * make prev onClick action
      */
-    public void stopAction(View view) {
-        if (mainPlayer != null) {
-            songSeeek.setProgress(0);
-            mainPlayer.seekTo(songSeeek.getProgress());
-            currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
-            mainPlayer.pause();
+    public void prev(View view) {
+        if (currenSongNumber > 0) {
+            currenSongNumber--;
+            startPlaying(currenSongNumber);
+        } else {
+            currenSongNumber = currentDirAllFiles.length - 1;
+            startPlaying(currenSongNumber);
         }
     }
 
@@ -154,47 +194,16 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
-     * make prev onClick action
+     * method performing stop action
      */
-    public void prev(View view) {
-        if (currenSongNumber > 0) {
-            currenSongNumber--;
-            startPlaying(currenSongNumber);
-        } else {
-            currenSongNumber = currentDirAllFiles.length - 1;
-            startPlaying(currenSongNumber);
-        }
-    }
-
-    /**
-     * switch played song to next or prev
-     */
-    public void startPlaying(int songId) {
+    public void stopAction(View view) {
         if (mainPlayer != null) {
-            if (mainPlayer.isPlaying()) {
-                mainPlayer.stop();
-            }
+            songSeeek.setProgress(0);
+            mainPlayer.seekTo(songSeeek.getProgress());
+            currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
+            mainPlayer.pause();
         }
-        mainPlayer = MediaPlayer.create(MainActivity.this, Uri.fromFile(currentDirAllFiles[songId]));
-        totalPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getDuration()));
-        songSeeek.setMax(mainPlayer.getDuration());
-        songSeeek.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View view, MotionEvent currentEvent) {
-                changeCurrentSeek(view);
-                return false;
-            }
-        });
-
-        currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
-        songSeeek.setProgress(mainPlayer.getCurrentPosition());
-
-        mainPlayer.start();
-        currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
-        buttonPausePlay.setText(R.string.playString);
-        pausePlay(buttonPausePlay);
     }
-
 
     public void openFileBrowser(View view) {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
