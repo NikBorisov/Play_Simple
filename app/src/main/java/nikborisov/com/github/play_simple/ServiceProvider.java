@@ -13,7 +13,8 @@ import java.util.regex.Pattern;
 public class ServiceProvider {
 
     private static final Pattern checkIsFormatSuppoerted = Pattern.compile("([^\\s]+(\\.(?i)(mp3|wav|ogg|aac|flac))$)");
-    /**
+
+    /*
      * returns formatted playback time for total time view and current playback time view
      */
     public static String formatPlaybackTime(int millsTime) {
@@ -23,7 +24,7 @@ public class ServiceProvider {
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millsTime)));
     }
 
-    /**
+    /*
      * if @param filesOrDirs true, return String[] of music files names, that represented in selected directory
      * if @param filesOrDirs false, return String[] of dirs names with music files inside
      */
@@ -38,15 +39,12 @@ public class ServiceProvider {
         for (int i = 0; i < buffer.size(); i++)
             returned[i] = buffer.get(i).getName();
         return returned;
-
-
     }
 
-    /**
+    /*
      * agregate all music files in selected dir and subdirs
      */
     public static ArrayList<File> fileNamesAgregator(File parentDir) {
-
         ArrayList<File> filesList = new ArrayList<>();
         File[] files = parentDir.listFiles();
         for (File file : files) {
@@ -60,6 +58,10 @@ public class ServiceProvider {
         }
         return filesList;
     }
+
+    /*
+    * agregate dirs with media files inside
+     */
 
     public static ArrayList<File> dirsWithMusicAgregator(File parentDir) {
         ArrayList<File> filesList = new ArrayList<>();
