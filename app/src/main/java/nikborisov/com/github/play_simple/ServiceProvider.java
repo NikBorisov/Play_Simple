@@ -24,14 +24,21 @@ public class ServiceProvider {
     }
 
     /**
-     * return String[] of music files names, that represented in selected directory
+     * if @param filesOrDirs true, return String[] of music files names, that represented in selected directory
+     * if @param filesOrDirs false, return String[] of dirs names with music files inside
      */
-    public static String[] getMediaFiles(File dirName) {
-        ArrayList<File> buffer = fileNamesAgregator(dirName);
+    public static String[] getMediaFiles(File dirName, boolean filesOrDirs) {
+        ArrayList<File> buffer = new ArrayList<>();
+        if (filesOrDirs) {
+            buffer = fileNamesAgregator(dirName);
+        } else {
+            buffer = dirsWithMusicAgregator(dirName);
+        }
         String[] returned = new String[buffer.size()];
         for (int i = 0; i < buffer.size(); i++)
             returned[i] = buffer.get(i).getName();
         return returned;
+
 
     }
 
@@ -55,6 +62,13 @@ public class ServiceProvider {
     }
 
     public static ArrayList<File> dirsWithMusicAgregator(File parentDir) {
-        return null;
+        ArrayList<File> filesList = new ArrayList<>();
+        File[] files = parentDir.listFiles();
+        for (File file : files) {
+            if (file.isDirectory()) {
+                filesList.add(file);
+            }
+        }
+        return filesList;
     }
 }

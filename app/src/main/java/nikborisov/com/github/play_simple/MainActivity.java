@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
         songListView = (ListView) findViewById(R.id.songList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
-                ServiceProvider.getMediaFiles(dirName));
+                ServiceProvider.getMediaFiles(dirName, true));
         songListView.setAdapter(listAdapter);
 
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
