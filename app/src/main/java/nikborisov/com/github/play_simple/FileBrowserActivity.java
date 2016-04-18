@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -30,7 +29,6 @@ public class FileBrowserActivity extends AppCompatActivity {
         currentDir = Environment.getExternalStorageDirectory(); //start directory is root dir
         currentDirContent = ServiceProvider.dirsWithMusicAgregator(currentDir) //work only with dirs that contain media files
                 .toArray(new File[ServiceProvider.dirsWithMusicAgregator(currentDir).size()]);
-
         dirsView = (ListView) findViewById(R.id.currentDirFilesList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -40,7 +38,6 @@ public class FileBrowserActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedDir = currentDirContent[position];
-                Log.e("check: ", selectedDir.getAbsolutePath());
             }
         });
     }
