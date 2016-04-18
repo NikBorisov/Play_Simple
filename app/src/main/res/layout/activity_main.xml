@@ -10,11 +10,17 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nikborisov.com.github.play_simple.MainActivity">
 
+    <EditText
+        android:id="@+id/searchEditText"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
     <LinearLayout
         android:id="@+id/mainScroll"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="7"
+        android:layout_weight="6"
         android:orientation="vertical">
 
         <ListView
@@ -123,15 +129,24 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:orientation="horizontal">
 
         <Button
             android:id="@+id/selectDirBut"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:onClick="openFileBrowser"
             android:text="play from..." />
 
+        <Button
+            android:id="@+id/seeAllBut"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:onClick="seeAll"
+            android:text="see all" />
 
     </LinearLayout>
 

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -18,7 +19,6 @@ public class FileBrowserActivity extends AppCompatActivity {
     private File[] currentDirContent;
     private ListView dirsView;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,7 +28,9 @@ public class FileBrowserActivity extends AppCompatActivity {
 
     public void initDirList() {
         currentDir = Environment.getExternalStorageDirectory(); //start directory is root dir
-        currentDirContent = currentDir.listFiles();//array represents all subdirs in current dir
+        currentDirContent = ServiceProvider.dirsWithMusicAgregator(currentDir) //work only with dirs that contain media files
+                .toArray(new File[ServiceProvider.dirsWithMusicAgregator(currentDir).size()]);
+
         dirsView = (ListView) findViewById(R.id.currentDirFilesList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
@@ -38,6 +40,7 @@ public class FileBrowserActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectedDir = currentDirContent[position];
+                Log.e("check: ", selectedDir.getAbsolutePath());
             }
         });
     }
@@ -45,11 +48,10 @@ public class FileBrowserActivity extends AppCompatActivity {
     public void addAllToPlaylist(View view) {
         if (selectedDir == null)
             selectedDir = Environment.getExternalStorageDirectory();
-        MainActivity.changeCurrentDir(selectedDir);
         Intent restartMainActivity = new Intent(this, MainActivity.class);
         if (MainActivity.getPlayer() != null)
             MainActivity.getPlayer().stop();
-        //MainActivity.getPlayer().release();
+        MainActivity.changeCurrentDir(selectedDir);
         startActivity(restartMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

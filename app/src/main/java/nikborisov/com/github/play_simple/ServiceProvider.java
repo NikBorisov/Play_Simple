@@ -71,6 +71,7 @@ public class ServiceProvider {
                     Matcher findMatches = checkIsFormatSuppoerted.matcher(check.getName());
                     if (findMatches.find()) {
                         filesList.add(file);
+                        break;
                     }
                 }
             }

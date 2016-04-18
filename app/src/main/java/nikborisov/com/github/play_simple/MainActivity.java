@@ -32,8 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private ListView songListView;
     private File[] currentDirAllFiles;
 
-    public static void changeCurrentDir(File dirName) {
-        MainActivity.dirName = dirName;
+    public static void changeCurrentDir(File changeDir) {
+        MainActivity.dirName = changeDir;
 
 
     }
@@ -201,7 +201,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * method performing stop action
      */
     public void stopAction(View view) {
@@ -213,8 +213,18 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+    * tap to see all songs on device
+     */
+    public void seeAll(View view) {
+        dirName = Environment.getExternalStorageDirectory();
+        currenSongNumber = 0;
+        startPlaying(0);
+    }
+
     public void openFileBrowser(View view) {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
         startActivity(openBrowserIntent);
     }
+
 }
