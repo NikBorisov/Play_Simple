@@ -45,7 +45,8 @@ public class FileBrowserActivity extends AppCompatActivity {
     public void addAllToPlaylist(View view) {
         MainActivity.changeCurrentDir(selectedDir);
         Intent restartMainActivity = new Intent(this, MainActivity.class);
-        MainActivity.getPlayer().stop();
+        if (MainActivity.getPlayer() != null)
+            MainActivity.getPlayer().stop();
         //MainActivity.getPlayer().release();
         startActivity(restartMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
