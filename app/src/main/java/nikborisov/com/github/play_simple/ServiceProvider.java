@@ -62,13 +62,17 @@ public class ServiceProvider {
     /*
     * agregate dirs with media files inside
      */
-
     public static ArrayList<File> dirsWithMusicAgregator(File parentDir) {
         ArrayList<File> filesList = new ArrayList<>();
         File[] files = parentDir.listFiles();
         for (File file : files) {
             if (file.isDirectory()) {
-                filesList.add(file);
+                for (File check : file.listFiles()) {
+                    Matcher findMatches = checkIsFormatSuppoerted.matcher(check.getName());
+                    if (findMatches.find()) {
+                        filesList.add(file);
+                    }
+                }
             }
         }
         return filesList;
