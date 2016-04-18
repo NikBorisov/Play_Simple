@@ -48,10 +48,10 @@ public class FileBrowserActivity extends AppCompatActivity {
     public void addAllToPlaylist(View view) {
         if (selectedDir == null)
             selectedDir = Environment.getExternalStorageDirectory();
-        Intent restartMainActivity = new Intent(this, MainActivity.class);
+        Intent backToMainActivity = new Intent(this, MainActivity.class);
         if (MainActivity.getPlayer() != null)
             MainActivity.getPlayer().stop();
         MainActivity.changeCurrentDir(selectedDir);
-        startActivity(restartMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        startActivity(backToMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 }

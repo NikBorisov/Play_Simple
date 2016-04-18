@@ -214,14 +214,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-    * tap to see all songs on device
+     * tap to see all songs on device
      */
     public void seeAll(View view) {
         dirName = Environment.getExternalStorageDirectory();
-        currenSongNumber = 0;
-        startPlaying(0);
+        if (MainActivity.getPlayer() != null)
+            MainActivity.getPlayer().stop();
+        Intent restartMainActivity = new Intent(this, MainActivity.class);
+        startActivity(restartMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
 
+    /*
+     * open file browser (allow select directory as source of playlist)
+     */
     public void openFileBrowser(View view) {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
         startActivity(openBrowserIntent);
