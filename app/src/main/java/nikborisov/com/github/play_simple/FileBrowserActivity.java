@@ -43,6 +43,8 @@ public class FileBrowserActivity extends AppCompatActivity {
     }
 
     public void addAllToPlaylist(View view) {
+        if (selectedDir == null)
+            selectedDir = Environment.getExternalStorageDirectory();
         MainActivity.changeCurrentDir(selectedDir);
         Intent restartMainActivity = new Intent(this, MainActivity.class);
         if (MainActivity.getPlayer() != null)
