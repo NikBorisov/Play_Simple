@@ -7,6 +7,8 @@ import android.net.Uri;
  * Created by nikolay on 14.04.16.
  */
 public class TitleExtractor {
+    private static final String UNKNOWN_DESC = "Unknown";
+
     MediaMetadataRetriever titleRetriver;
     private Uri titleUri;
     private String titleName;
@@ -31,6 +33,12 @@ public class TitleExtractor {
         this.titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         this.artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
         this.album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        if (titleName == null)
+            titleName = UNKNOWN_DESC;
+        if (artist == null)
+            artist = UNKNOWN_DESC;
+        if (album == null)
+            album = UNKNOWN_DESC;
         return titleName + "\n" + artist + "\n" + album;
     }
 
