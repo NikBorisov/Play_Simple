@@ -32,6 +32,7 @@ public class PlayListAdpapter extends ArrayAdapter<String> {
         String[] currentItem = values[position].split("\n");
         title.setText(currentItem[0]);
         autor.setText(currentItem[1]);
+        duration.setText(currentItem[3]);
 
         return playListView;
     }

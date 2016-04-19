@@ -65,7 +65,8 @@ public class MainActivity extends AppCompatActivity {
         //playlist listView initalization start
         mediaInfo = new String[currentDirAllFiles.length];
         for (int i = 0; i < mediaInfo.length; i++) {
-            mediaInfo[i] = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i])).getTitleInfo();
+            TitleExtractor extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
+            mediaInfo[i] = extractor.getTitleInfo() + "\n" + extractor.getDurationOnly();
         }
         PlayListAdpapter listAdapter = new PlayListAdpapter(this, mediaInfo);
         songListView.setAdapter(listAdapter);

@@ -19,13 +19,14 @@ public class TitleExtractor {
     public TitleExtractor(Uri titleUri) {
         this.titleUri = titleUri;
         titleRetriver = new MediaMetadataRetriever();
+        titleRetriver.setDataSource(titleUri.getPath());
     }
 
-    /**
+    /*
      * extract data about title. Use file uri
      */
     public String getTitleInfo() {
-        titleRetriver.setDataSource(titleUri.getPath());
+        // titleRetriver.setDataSource(titleUri.getPath());
         String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         String artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
         String album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
@@ -36,6 +37,14 @@ public class TitleExtractor {
         if (album == null)
             album = UNKNOWN_DESC;
         return titleName + "\n" + artist + "\n" + album;
+    }
+
+    /*
+     * returns formatted track duration
+     */
+    public String getDurationOnly() {
+        int titleDuration = Integer.parseInt(titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+        return ServiceProvider.formatPlaybackTime(titleDuration);
     }
 
 }
