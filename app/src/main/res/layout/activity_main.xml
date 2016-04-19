@@ -28,7 +28,8 @@
         <ListView
             android:id="@+id/songList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:listSelector="#B2DFDB">
 
         </ListView>
     </LinearLayout>

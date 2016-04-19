@@ -10,7 +10,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.SeekBar;
@@ -30,6 +29,8 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentPlayingTime;
     private ListView songListView;
     private File[] currentDirAllFiles;
+
+    private String[] mediaInfo;
 
     public static void changeCurrentDir(File changeDir) {
         MainActivity.dirName = changeDir;
@@ -56,13 +57,22 @@ public class MainActivity extends AppCompatActivity {
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
         currentPlayingTime = (TextView) findViewById(R.id.currentTime);
         songListView = (ListView) findViewById(R.id.songList);
-        ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                ServiceProvider.getMediaFiles(dirName, true));
 
         currentDirAllFiles = ServiceProvider
                 .fileNamesAgregator(MainActivity.dirName)
                 .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
+
+        //playlist listView initalization start
+        mediaInfo = new String[currentDirAllFiles.length];
+        for (int i = 0; i < mediaInfo.length; i++) {
+            mediaInfo[i] = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i])).getTitleInfo();
+        }
+
+        /*ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
+                android.R.layout.simple_list_item_1,
+                ServiceProvider.getMediaFiles(dirName, true));*/
+        PlayListAdpapter listAdapter = new PlayListAdpapter(this, mediaInfo);
+
         songListView.setAdapter(listAdapter);
 
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

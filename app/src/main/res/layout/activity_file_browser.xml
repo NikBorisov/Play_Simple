@@ -16,7 +16,7 @@
         android:layout_height="0dp"
         android:layout_weight="7"
         android:choiceMode="singleChoice"
-        android:listSelector="#B3E5FC">
+        android:listSelector="#B2DFDB">
 
     </ListView>
 

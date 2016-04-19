@@ -8,12 +8,8 @@ import android.net.Uri;
  */
 public class TitleExtractor {
     private static final String UNKNOWN_DESC = "Unknown";
-
     MediaMetadataRetriever titleRetriver;
     private Uri titleUri;
-    private String titleName;
-    private String artist;
-    private String album;
 
     /**
      * create TitelExtractor instance
@@ -30,9 +26,9 @@ public class TitleExtractor {
      */
     public String getTitleInfo() {
         titleRetriver.setDataSource(titleUri.getPath());
-        this.titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        this.artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        this.album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        String artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        String album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
         if (titleName == null)
             titleName = UNKNOWN_DESC;
         if (artist == null)
