@@ -31,7 +31,7 @@ public class FileBrowserActivity extends AppCompatActivity {
                 .toArray(new File[ServiceProvider.dirsWithMusicAgregator(currentDir).size()]);
         dirsView = (ListView) findViewById(R.id.currentDirFilesList);
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
+                R.layout.filebrowser_list_item, R.id.listItemFolderName,
                 ServiceProvider.getMediaFiles(currentDir, false));
         dirsView.setAdapter(listAdapter);
         dirsView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

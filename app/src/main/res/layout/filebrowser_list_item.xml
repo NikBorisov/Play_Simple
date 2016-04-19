@@ -8,25 +8,16 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
-        android:src="@drawable/music" />
+        android:src="@drawable/ic_folder_black_48dp" />
 
     <TextView
-        android:id="@+id/listItemTitle"
+        android:id="@+id/listItemFolderName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/listItemIcon"
         android:layout_margin="8dp"
         android:layout_toRightOf="@id/listItemIcon"
-        android:text="Title"
-        android:textSize="24dp" />
-
-    <TextView
-        android:id="@+id/listItemAutor"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/listItemTitle"
-        android:layout_marginLeft="8dp"
-        android:layout_toRightOf="@id/listItemIcon"
-        android:text="Autor"
+        android:text="Folder name"
         android:textSize="24dp" />
 
 </RelativeLayout>

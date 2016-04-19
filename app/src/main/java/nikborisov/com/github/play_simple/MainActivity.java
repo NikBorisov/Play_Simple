@@ -62,6 +62,7 @@ public class MainActivity extends AppCompatActivity {
         ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
                 android.R.layout.simple_list_item_1,
                 ServiceProvider.getMediaFiles(dirName, true));
+
         currentDirAllFiles = ServiceProvider
                 .fileNamesAgregator(MainActivity.dirName)
                 .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
