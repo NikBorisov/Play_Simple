@@ -27,11 +27,13 @@ public class PlayListAdpapter extends ArrayAdapter<String> {
         View playListView = inflater.inflate(R.layout.playlist_list_item, parent, false);
         TextView title = (TextView) playListView.findViewById(R.id.listItemTitle);
         TextView autor = (TextView) playListView.findViewById(R.id.listItemArtist);
+        TextView album = (TextView) playListView.findViewById(R.id.listItemAlbum);
         TextView duration = (TextView) playListView.findViewById(R.id.listItemDuration);
 
         String[] currentItem = values[position].split("\n");
         title.setText(currentItem[0]);
         autor.setText(currentItem[1]);
+        album.setText(currentItem[2]);
         duration.setText(currentItem[3]);
 
         return playListView;

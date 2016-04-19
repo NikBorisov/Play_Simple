@@ -8,6 +8,7 @@
         android:id="@+id/listItemIcon"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_music_note" />
 
     <TextView
@@ -16,7 +17,7 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/listItemIcon"
         android:text="Title name"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
     <TextView
         android:id="@+id/listItemArtist"
@@ -25,7 +26,16 @@
         android:layout_below="@id/listItemTitle"
         android:layout_toRightOf="@id/listItemIcon"
         android:text="Artist name"
-        android:textSize="24dp" />
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/listItemAlbum"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listItemArtist"
+        android:layout_toRightOf="@id/listItemIcon"
+        android:text="Album name"
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/listItemDuration"
@@ -33,7 +43,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:text="00:00"
-        android:textSize="24dp" />
+        android:textSize="24sp" />
 
 
 </RelativeLayout>
