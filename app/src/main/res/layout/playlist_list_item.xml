@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_margin="8dp">
+
+    <ImageView
+        android:id="@+id/listItemIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_music_note" />
+
+    <TextView
+        android:id="@+id/listItemTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/listItemIcon"
+        android:text="Title name"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/listItemArtist"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/listItemTitle"
+        android:layout_toRightOf="@id/listItemIcon"
+        android:text="Artist name"
+        android:textSize="24dp" />
+
+    <TextView
+        android:id="@+id/listItemDuration"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text="00:00"
+        android:textSize="24dp" />
+
+
+</RelativeLayout>

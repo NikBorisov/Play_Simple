@@ -1,6 +1,5 @@
 package nikborisov.com.github.play_simple;
 
-
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -34,8 +33,6 @@ public class MainActivity extends AppCompatActivity {
 
     public static void changeCurrentDir(File changeDir) {
         MainActivity.dirName = changeDir;
-
-
     }
 
     public static MediaPlayer getPlayer() {
@@ -232,5 +229,4 @@ public class MainActivity extends AppCompatActivity {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
         startActivity(openBrowserIntent);
     }
-
 }
