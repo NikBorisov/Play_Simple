@@ -67,14 +67,8 @@ public class MainActivity extends AppCompatActivity {
         for (int i = 0; i < mediaInfo.length; i++) {
             mediaInfo[i] = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i])).getTitleInfo();
         }
-
-        /*ArrayAdapter<String> listAdapter = new ArrayAdapter<>(this,
-                android.R.layout.simple_list_item_1,
-                ServiceProvider.getMediaFiles(dirName, true));*/
         PlayListAdpapter listAdapter = new PlayListAdpapter(this, mediaInfo);
-
         songListView.setAdapter(listAdapter);
-
         songListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -82,7 +76,6 @@ public class MainActivity extends AppCompatActivity {
                 startPlaying(position);
             }
         });
-
     }
 
     /**
