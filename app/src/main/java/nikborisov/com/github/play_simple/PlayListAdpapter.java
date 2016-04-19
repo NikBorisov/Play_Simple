@@ -7,7 +7,7 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
-/**
+/*
  * Created by nikolay on 19.04.16.
  * custom adapter for playlist listView
  */
@@ -21,8 +21,13 @@ public class PlayListAdpapter extends ArrayAdapter<String> {
         this.values = values;
     }
 
+    /*
+     * customsize items of playlist listView(MainActivity)
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
+
+
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View playListView = inflater.inflate(R.layout.playlist_list_item, parent, false);
         TextView title = (TextView) playListView.findViewById(R.id.listItemTitle);

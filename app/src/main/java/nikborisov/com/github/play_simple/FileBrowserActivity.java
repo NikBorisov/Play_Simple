@@ -25,6 +25,9 @@ public class FileBrowserActivity extends AppCompatActivity {
         initDirList();
     }
 
+    /*
+     * make visible dirs with media inside
+     */
     public void initDirList() {
         currentDir = Environment.getExternalStorageDirectory(); //start directory is root dir
         currentDirContent = ServiceProvider.dirsWithMusicAgregator(currentDir) //work only with dirs that contain media files
@@ -42,6 +45,9 @@ public class FileBrowserActivity extends AppCompatActivity {
         });
     }
 
+    /*
+     * Add selected dir content to playlist
+     */
     public void addAllToPlaylist(View view) {
         if (selectedDir == null)
             selectedDir = Environment.getExternalStorageDirectory();

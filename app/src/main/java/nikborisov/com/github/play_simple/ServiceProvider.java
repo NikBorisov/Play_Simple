@@ -6,7 +6,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-/**
+/*
  * Created by nikolay on 12.04.16.
  * class for audio player utils
  */
@@ -60,7 +60,7 @@ public class ServiceProvider {
     }
 
     /*
-    * agregate dirs with media files inside
+     * agregate dirs with media files inside
      */
     public static ArrayList<File> dirsWithMusicAgregator(File parentDir) {
         ArrayList<File> filesList = new ArrayList<>();

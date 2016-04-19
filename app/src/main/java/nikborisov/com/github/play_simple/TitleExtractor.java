@@ -11,9 +11,8 @@ public class TitleExtractor {
     MediaMetadataRetriever titleRetriver;
     private Uri titleUri;
 
-    /**
+    /*
      * create TitelExtractor instance
-     *
      * @param titleUri
      */
     public TitleExtractor(Uri titleUri) {
@@ -23,10 +22,9 @@ public class TitleExtractor {
     }
 
     /*
-     * extract data about title. Use file uri
+     * extract data about title
      */
     public String getTitleInfo() {
-        // titleRetriver.setDataSource(titleUri.getPath());
         String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         String artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
         String album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);

@@ -21,15 +21,14 @@ public class MainActivity extends AppCompatActivity {
     private static MediaPlayer mainPlayer;
     private static File dirName = Environment.getExternalStorageDirectory();
     private final Handler handler = new Handler();
+    private int currenSongNumber = -1;
     private Button buttonPausePlay;
     private SeekBar songSeeek;
-    private int currenSongNumber = -1;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
     private ListView songListView;
     private File[] currentDirAllFiles;
-
     private String[] mediaInfo;
 
     public static void changeCurrentDir(File changeDir) {
@@ -47,7 +46,7 @@ public class MainActivity extends AppCompatActivity {
         playerInitialization();
     }
 
-    /**
+    /*
      * setup Player to valid condition
      */
     public void playerInitialization() {
@@ -79,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    /**
+    /*
      * initialize media player by new instance, start song playback
      */
     public void startPlaying(int songId) {
@@ -104,10 +103,11 @@ public class MainActivity extends AppCompatActivity {
         mainPlayer.start();
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
         buttonPausePlay.setText(R.string.playString);
+        songListView.setSelection(currenSongNumber);
         pausePlay(buttonPausePlay);
     }
 
-    /**
+    /*
      * handler for seekBar
      */
     private void changeCurrentSeek(View view) {
@@ -117,7 +117,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * play and pause actions invoke
      */
     public void pausePlay(View view) {
@@ -140,11 +140,11 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * playing progress, update seekbar condition and current playback time
      */
     public void progress() {
-        /**
+        /*
          * if song is over,start next, if playlist is over send message to user
          */
         if (mainPlayer.getCurrentPosition() == mainPlayer.getDuration()) {
@@ -174,7 +174,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * make prev onClick action
      */
     public void prev(View view) {
@@ -189,7 +189,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    /**
+    /*
      * make "next" onClick action
      */
     public void next(View view) {

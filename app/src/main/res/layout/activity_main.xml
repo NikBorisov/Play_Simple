@@ -11,12 +11,26 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="nikborisov.com.github.play_simple.MainActivity">
 
-    <EditText
-        android:id="@+id/searchEditText"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:inputType="textShortMessage" />
+        android:orientation="horizontal">
+
+        <ImageView
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/ic_search_black" />
+
+        <EditText
+            android:id="@+id/searchEditText"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="7"
+            android:inputType="textShortMessage" />
+
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/mainScroll"
@@ -28,12 +42,10 @@
         <ListView
             android:id="@+id/songList"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:listSelector="#B2DFDB">
+            android:layout_height="match_parent">
 
         </ListView>
     </LinearLayout>
-
 
     <SeekBar
         android:id="@+id/seekBar"
