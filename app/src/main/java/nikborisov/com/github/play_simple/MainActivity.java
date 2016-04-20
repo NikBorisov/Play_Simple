@@ -178,9 +178,6 @@ public class MainActivity extends AppCompatActivity {
      * playing progress, update seekbar condition and current playback time
      */
     public void progress() {
-        /*
-         * if song is over,start next
-         */
         if (mainPlayer.getCurrentPosition() == mainPlayer.getDuration()) {
             if (currenSongNumber < currentDirAllFiles.length - 1) {
                 currenSongNumber++;
