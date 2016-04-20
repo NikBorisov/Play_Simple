@@ -22,6 +22,7 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
     private static MediaPlayer mainPlayer;
@@ -29,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
     private final Handler handler = new Handler();
     private int currenSongNumber = -1;
     private EditText searchAction;
-    private String searched;
     private Button buttonPausePlay;
     private SeekBar songSeeek;
     private TextView currentTitleInfo;
@@ -66,12 +66,13 @@ public class MainActivity extends AppCompatActivity {
             public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
                 if (actionId == EditorInfo.IME_ACTION_DONE) {
                     // do something, e.g. set your TextView here via .setText()
-                    searched = searchAction.getText().toString();
+                    String searched = searchAction.getText().toString();
                     searchAction.setText("");
                     searchAction.clearFocus();
                     Log.e("searched is ", searched); // for testing only
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    makeSearch(searched);
                     return true;
                 }
                 return false;
@@ -89,10 +90,17 @@ public class MainActivity extends AppCompatActivity {
                 .fileNamesAgregator(MainActivity.dirName)
                 .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
 
-        //playlist listView initalization start
-        String[] mediaInfo = new String[currentDirAllFiles.length];
+        //playlist initalization start
+        playListInitalization(currentDirAllFiles);
+    }
+
+    /*
+     * method performing playlist initalization
+     */
+    public void playListInitalization(File[] content) {
+        String[] mediaInfo = new String[content.length];
         for (int i = 0; i < mediaInfo.length; i++) {
-            TitleExtractor extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
+            TitleExtractor extractor = new TitleExtractor(Uri.fromFile(content[i]));
             mediaInfo[i] = extractor.getTitleInfo() + "\n" + extractor.getDurationOnly();
         }
         PlayListAdpapter listAdapter = new PlayListAdpapter(this, mediaInfo);
@@ -260,5 +268,21 @@ public class MainActivity extends AppCompatActivity {
     public void openFileBrowser(View view) {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
         startActivity(openBrowserIntent);
+    }
+
+    /*
+     * method performing search by user input
+     */
+    public void makeSearch(String searched) {
+        if (!searched.isEmpty()) {
+            ArrayList<File> matches = new ArrayList<>();
+            for (int i = 0; i < currentDirAllFiles.length; i++) {
+                TitleExtractor extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
+                String checkCoincedence = extractor.getTitleInfo();
+                if (checkCoincedence.toLowerCase().contains(searched.toLowerCase()))
+                    matches.add(currentDirAllFiles[i]);
+            }
+            playListInitalization(matches.toArray(new File[matches.size()]));
+        }
     }
 }
