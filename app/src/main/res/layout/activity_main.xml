@@ -28,7 +28,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="7"
-            android:inputType="textShortMessage" />
+            android:hint="search..."
+            android:imeOptions="actionDone"
+            android:inputType="textShortMessage"
+            android:textStyle="italic" />
 
         <Spinner
             android:layout_width="0dp"
@@ -96,7 +99,7 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
+            android:layout_marginLeft="10dp"
             android:text="Total time:" />
 
         <TextView

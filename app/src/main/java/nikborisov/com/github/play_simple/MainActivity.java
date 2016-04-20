@@ -1,5 +1,6 @@
 package nikborisov.com.github.play_simple;
 
+import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
 import android.net.Uri;
@@ -7,10 +8,15 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -22,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
     private static File dirName = Environment.getExternalStorageDirectory();
     private final Handler handler = new Handler();
     private int currenSongNumber = -1;
+    private EditText searchAction;
+    private String searched;
     private Button buttonPausePlay;
     private SeekBar songSeeek;
     private TextView currentTitleInfo;
@@ -49,6 +57,27 @@ public class MainActivity extends AppCompatActivity {
      * setup Player to valid condition
      */
     public void playerInitialization() {
+        searchAction = (EditText) findViewById(R.id.searchEditText);
+        /*
+         * handle "search" user input from editText "searchAction"
+         */
+        searchAction.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    // do something, e.g. set your TextView here via .setText()
+                    searched = searchAction.getText().toString();
+                    searchAction.setText("");
+                    searchAction.clearFocus();
+                    Log.e("searched is ", searched); // for testing only
+                    InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+                    return true;
+                }
+                return false;
+            }
+        });
+
         buttonPausePlay = (Button) findViewById(R.id.pausePlaySong);
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);

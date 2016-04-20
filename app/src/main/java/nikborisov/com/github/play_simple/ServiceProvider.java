@@ -8,7 +8,7 @@ import java.util.regex.Pattern;
 
 /*
  * Created by nikolay on 12.04.16.
- * class for audio player utils
+ * class for audio player services
  */
 public class ServiceProvider {
 

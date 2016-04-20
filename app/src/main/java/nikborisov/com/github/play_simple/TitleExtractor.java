@@ -5,6 +5,7 @@ import android.net.Uri;
 
 /**
  * Created by nikolay on 14.04.16.
+ * class designed for data extraction from media files
  */
 public class TitleExtractor {
     private static final String UNKNOWN_DESC = "Unknown";
