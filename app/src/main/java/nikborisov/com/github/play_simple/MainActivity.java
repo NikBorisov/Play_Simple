@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -69,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                     String searched = searchAction.getText().toString();
                     searchAction.setText("");
                     searchAction.clearFocus();
-                    Log.e("searched is ", searched); // for testing only
                     InputMethodManager imm = (InputMethodManager) v.getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
                     imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
                     makeSearch(searched);
@@ -282,7 +280,11 @@ public class MainActivity extends AppCompatActivity {
                 if (checkCoincedence.toLowerCase().contains(searched.toLowerCase()))
                     matches.add(currentDirAllFiles[i]);
             }
-            playListInitalization(matches.toArray(new File[matches.size()]));
+            if (matches.size() > 0) {
+                File[] searchedCoincedenses = matches.toArray(new File[matches.size()]);
+                currentDirAllFiles = searchedCoincedenses;
+                playListInitalization(searchedCoincedenses);
+            }
         }
     }
 }
