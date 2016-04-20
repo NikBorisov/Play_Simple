@@ -29,7 +29,6 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentPlayingTime;
     private ListView songListView;
     private File[] currentDirAllFiles;
-    private String[] mediaInfo;
 
     public static void changeCurrentDir(File changeDir) {
         MainActivity.dirName = changeDir;
@@ -62,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
                 .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
 
         //playlist listView initalization start
-        mediaInfo = new String[currentDirAllFiles.length];
+        String[] mediaInfo = new String[currentDirAllFiles.length];
         for (int i = 0; i < mediaInfo.length; i++) {
             TitleExtractor extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
             mediaInfo[i] = extractor.getTitleInfo() + "\n" + extractor.getDurationOnly();
@@ -145,7 +144,7 @@ public class MainActivity extends AppCompatActivity {
      */
     public void progress() {
         /*
-         * if song is over,start next, if playlist is over send message to user
+         * if song is over,start next
          */
         if (mainPlayer.getCurrentPosition() == mainPlayer.getDuration()) {
             if (currenSongNumber < currentDirAllFiles.length - 1) {
