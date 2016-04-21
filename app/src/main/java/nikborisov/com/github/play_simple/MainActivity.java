@@ -25,8 +25,8 @@ import java.util.ArrayList;
 public class MainActivity extends AppCompatActivity {
     private static MediaPlayer mainPlayer;
     private static File dirName = Environment.getExternalStorageDirectory();
+    private static int currenSongNumber = -1;
     private final Handler handler = new Handler();
-    private int currenSongNumber = -1;
     private EditText searchAction;
     private SeekBar songSeeek;
     private TextView currentTitleInfo;
@@ -42,6 +42,10 @@ public class MainActivity extends AppCompatActivity {
 
     public static MediaPlayer getPlayer() {
         return mainPlayer;
+    }
+
+    public static int getCurrenSongNumber() {
+        return currenSongNumber;
     }
 
     public boolean isPlayed() {
