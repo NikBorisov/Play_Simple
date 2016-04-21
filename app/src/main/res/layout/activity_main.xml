@@ -135,14 +135,14 @@
             android:onClick="stopAction"
             android:src="@drawable/stop"/>
 
-        <Button
+        <ImageButton
             android:id="@+id/pausePlaySong"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:onClick="pausePlay"
-            android:src="@drawable/play"
-            android:text="@string/playString" />
+            android:background="@drawable/buttons_selector"
+            android:onClick="playPauseAction"
+            android:src="@drawable/play" />
 
         <ImageButton
             android:id="@+id/nextSong"
