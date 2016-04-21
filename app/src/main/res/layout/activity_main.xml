@@ -167,6 +167,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/buttons_selector"
             android:onClick="openFileBrowser"
             android:text="play from..." />
 
@@ -175,6 +176,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/buttons_selector"
             android:onClick="seeAll"
             android:text="see all" />
 

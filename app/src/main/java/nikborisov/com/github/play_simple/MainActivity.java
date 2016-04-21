@@ -16,7 +16,6 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.TextView;
@@ -37,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentPlayingTime;
     private ListView songListView;
     private File[] currentDirAllFiles;
+    private boolean playOrPause;
 
     public static void changeCurrentDir(File changeDir) {
         MainActivity.dirName = changeDir;
