@@ -44,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
         return mainPlayer;
     }
 
-    public static int getCurrenSongNumber() {
-        return currenSongNumber;
-    }
-
     public boolean isPlayed() {
         return isPlayed;
     }

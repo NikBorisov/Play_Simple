@@ -18,7 +18,7 @@ public class ServiceProvider {
      * returns formatted playback time for total time view and current playback time view
      */
     public static String formatPlaybackTime(int millsTime) {
-        return String.format("%02d : %02d",
+        return String.format("%02d:%02d",
                 TimeUnit.MILLISECONDS.toMinutes(millsTime),
                 TimeUnit.MILLISECONDS.toSeconds(millsTime) -
                         TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millsTime)));

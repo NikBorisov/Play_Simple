@@ -41,12 +41,6 @@ public class PlayListAdpapter extends ArrayAdapter<String> {
         autor.setText(currentItem[1]);
         album.setText(currentItem[2]);
         duration.setText(currentItem[3]);
-        //work wrong, fix!
-        if (position == MainActivity.getCurrenSongNumber()) {
-            ImageView listItemIcon = (ImageView) playListView.findViewById(R.id.listItemIcon);
-            listItemIcon.setImageResource(R.drawable.woofer);
-        }
-
         return playListView;
     }
 }

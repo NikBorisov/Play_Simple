@@ -31,6 +31,7 @@
             android:hint="search..."
             android:imeOptions="actionDone"
             android:inputType="textShortMessage"
+            android:textSize="12sp"
             android:textStyle="italic" />
 
         <Spinner
@@ -72,7 +73,7 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:text="Tap to select song..."
-            android:textSize="18sp" />
+            android:textSize="14sp" />
     </RelativeLayout>
 
 
@@ -86,25 +87,30 @@
         <TextView
             android:layout_width="100dp"
             android:layout_height="match_parent"
-            android:text="Playing time:" />
+            android:text="Playing time:"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/currentTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="00:00" />
+            android:text="00:00"
+            android:textSize="14sp" />
 
         <TextView
             android:layout_width="100dp"
             android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
-            android:text="Total time:" />
+            android:text="Total time:"
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/totalTime"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:text="00:00" />
+            android:text="00:00"
+
+            android:textSize="14sp" />
 
     </LinearLayout>
 
@@ -133,7 +139,7 @@
             android:background="@drawable/buttons_selector"
             android:clickable="true"
             android:onClick="stopAction"
-            android:src="@drawable/stop"/>
+            android:src="@drawable/stop" />
 
         <ImageButton
             android:id="@+id/pausePlaySong"
@@ -152,7 +158,7 @@
             android:background="@drawable/buttons_selector"
             android:clickable="true"
             android:onClick="next"
-            android:src="@drawable/next"/>
+            android:src="@drawable/next" />
 
     </LinearLayout>
 
