@@ -30,7 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private static int currenSongNumber = -1;
     private final Handler handler = new Handler();
     private EditText searchAction;
-    private Spinner sortBy;
+    private Spinner sortChoiser;
+    private SortType sortType;
     private SeekBar songSeeek;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
@@ -59,13 +60,10 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        playerInitialization();
+        startUp();
     }
 
-    /*
-     * setup Player to valid condition
-     */
-    public void playerInitialization() {
+    public void startUp() {
         searchAction = (EditText) findViewById(R.id.searchEditText);
         /*
          * handle "search" user input from editText "searchAction"
@@ -88,12 +86,28 @@ public class MainActivity extends AppCompatActivity {
         /*
          * setup spinner for user "sort by" choice
          */
-        sortBy = (Spinner) findViewById(R.id.sortBy);
+        sortChoiser = (Spinner) findViewById(R.id.sortBy);
         ArrayAdapter<CharSequence> sortByAdapter = ArrayAdapter.createFromResource(this,
                 R.array.userChoice, android.R.layout.simple_spinner_item);
         sortByAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        sortBy.setAdapter(sortByAdapter);
-        sortBy.setOnItemSelectedListener(new SpinnerAdapter());
+        sortChoiser.setAdapter(sortByAdapter);
+        //invoke makeSort method by user choice
+        sortChoiser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                for (SortType choiceSortType : SortType.values()) {
+                    if (choiceSortType.ordinal() == position)
+                        sortType = choiceSortType;
+                    break;
+                }
+                makeSort();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
 
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);
@@ -104,7 +118,6 @@ public class MainActivity extends AppCompatActivity {
         currentDirAllFiles = ServiceProvider
                 .fileNamesAgregator(MainActivity.dirName)
                 .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
-        //playlist initalization start
         playListInitalization(currentDirAllFiles);
     }
 
@@ -115,7 +128,7 @@ public class MainActivity extends AppCompatActivity {
         String[] mediaInfo = new String[content.length];
         for (int i = 0; i < mediaInfo.length; i++) {
             TitleExtractor extractor = new TitleExtractor(Uri.fromFile(content[i]));
-            mediaInfo[i] = extractor.getTitleInfo() + "\n" + extractor.getDurationOnly();
+            mediaInfo[i] = extractor.getFullTitleInfo() + "\n" + extractor.getDuration();
         }
         PlayListAdpapter listAdapter = new PlayListAdpapter(this, mediaInfo);
         songListView.setAdapter(listAdapter);
@@ -150,7 +163,7 @@ public class MainActivity extends AppCompatActivity {
         currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
         songSeeek.setProgress(mainPlayer.getCurrentPosition());
         mainPlayer.start();
-        currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getTitleInfo());
+        currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getFullTitleInfo());
         setPlayed(true);
         songListView.setSelection(currenSongNumber);
         playing();
@@ -299,7 +312,7 @@ public class MainActivity extends AppCompatActivity {
             ArrayList<File> matches = new ArrayList<>();
             for (int i = 0; i < currentDirAllFiles.length; i++) {
                 TitleExtractor extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
-                String checkCoincedence = extractor.getTitleInfo();
+                String checkCoincedence = extractor.getFullTitleInfo();
                 if (checkCoincedence.toLowerCase().contains(searched.toLowerCase()))
                     matches.add(currentDirAllFiles[i]);
             }
@@ -309,5 +322,10 @@ public class MainActivity extends AppCompatActivity {
                 playListInitalization(searchedCoincedenses);
             }
         }
+    }
+
+    public void makeSort() {
+
+
     }
 }

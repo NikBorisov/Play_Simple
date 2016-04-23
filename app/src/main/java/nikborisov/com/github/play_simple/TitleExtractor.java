@@ -25,7 +25,7 @@ public class TitleExtractor {
     /*
      * extract data about title
      */
-    public String getTitleInfo() {
+    public String getFullTitleInfo() {
         String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         String artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
         String album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
@@ -41,9 +41,16 @@ public class TitleExtractor {
     /*
      * returns formatted track duration
      */
-    public String getDurationOnly() {
+    public String getDuration() {
         int titleDuration = Integer.parseInt(titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
         return ServiceProvider.formatPlaybackTime(titleDuration);
+    }
+
+    public String getTitle() {
+        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        if (titleName == null)
+            return UNKNOWN_DESC;
+        else return titleName;
     }
 
 }
