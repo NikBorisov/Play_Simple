@@ -14,9 +14,11 @@ import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SeekBar;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.io.File;
@@ -28,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
     private static int currenSongNumber = -1;
     private final Handler handler = new Handler();
     private EditText searchAction;
+    private Spinner sortBy;
     private SeekBar songSeeek;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
@@ -36,12 +39,12 @@ public class MainActivity extends AppCompatActivity {
     private File[] currentDirAllFiles;
     private boolean isPlayed;
 
-    public static void changeCurrentDir(File changeDir) {
-        MainActivity.dirName = changeDir;
-    }
-
     public static MediaPlayer getPlayer() {
         return mainPlayer;
+    }
+
+    public static void changeCurrentDir(File changeDir) {
+        MainActivity.dirName = changeDir;
     }
 
     public boolean isPlayed() {
@@ -82,6 +85,16 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             }
         });
+        /*
+         * setup spinner for user "sort by" choice
+         */
+        sortBy = (Spinner) findViewById(R.id.sortBy);
+        ArrayAdapter<CharSequence> sortByAdapter = ArrayAdapter.createFromResource(this,
+                R.array.userChoice, android.R.layout.simple_spinner_item);
+        sortByAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        sortBy.setAdapter(sortByAdapter);
+        sortBy.setOnItemSelectedListener(new SpinnerAdapter());
+
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);

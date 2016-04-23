@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="userChoice">
+        <item>Title</item>
+        <item>Album</item>
+        <item>Artist</item>
+        <item>Duration</item>
+    </string-array>
+</resources>
