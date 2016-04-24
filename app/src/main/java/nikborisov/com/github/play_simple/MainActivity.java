@@ -69,7 +69,7 @@ public class MainActivity extends AppCompatActivity {
     public void startUp() {
         searchAction = (EditText) findViewById(R.id.searchEditText);
         /*
-         * handle "search" user input from editText "searchAction"
+         * handle "search" user input from editText "searchAction";
          */
         searchAction.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -87,7 +87,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
         /*
-         * setup spinner for user "sort by" choice
+         * setup spinner for user "sort by" choice;
          */
         sortChoiser = (Spinner) findViewById(R.id.sortBy);
         ArrayAdapter<CharSequence> sortByAdapter = ArrayAdapter.createFromResource(this,
@@ -135,7 +135,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * method performing playlist initalization
+     * method performing playlist initalization;
      */
     public void playListInitalization(File[] content) {
         String[] mediaInfo = new String[content.length];
@@ -155,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * initialize media player by new instance, start song playback
+     * initialize media player by new instance, start song playback;
      */
     public void playerInitalization(int songId) {
         if (mainPlayer != null) {
@@ -183,7 +183,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * handler for seekBar
+     * handler for seekBar;
      */
     private void changeCurrentSeek(View view) {
         if (mainPlayer.isPlaying()) {
@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * play and pause actions invoke
+     * play and pause actions invoke;
      */
     public void playPauseAction(View view) {
         if (isPlayed())
@@ -204,7 +204,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * switch between paused and play states
+     * switch between paused and play states;
      */
     public void playing() {
         if (mainPlayer != null) {
@@ -227,7 +227,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * playing progress, update seekbar condition and current playback time
+     * playing progress, update seekbar condition and current playback time;
      */
     public void progress() {
         if (mainPlayer.getCurrentPosition() == mainPlayer.getDuration()) {
@@ -257,7 +257,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * make prev onClick action
+     * make prev onClick action;
      */
     public void prev(View view) {
         setPlayed(true);
@@ -273,7 +273,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * make "next" onClick action
+     * make "next" onClick action;
      */
     public void next(View view) {
         setPlayed(true);
@@ -288,7 +288,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * method performing stop action
+     * method performing stop action;
      */
     public void stopAction(View view) {
         if (mainPlayer != null) {
@@ -302,18 +302,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * tap to see all songs on device
+     * tap to see all songs on device;
      */
     public void seeAll(View view) {
         dirName = Environment.getExternalStorageDirectory();
-        if (MainActivity.getPlayer() != null)
-            MainActivity.getPlayer().stop();
-        Intent restartMainActivity = new Intent(this, MainActivity.class);
-        startActivity(restartMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
+        currentDirAllFiles = ServiceProvider
+                .fileNamesAgregator(MainActivity.dirName)
+                .toArray(new File[ServiceProvider.fileNamesAgregator(MainActivity.dirName).size()]);
+        playListInitalization(currentDirAllFiles);
     }
 
     /*
-     * open file browser (allow select directory as source of playlist)
+     * open file browser (allow select directory as source of playlist);
      */
     public void openFileBrowser(View view) {
         Intent openBrowserIntent = new Intent(this, FileBrowserActivity.class);
@@ -321,7 +321,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /*
-     * method performing search by user input
+     * method performing search by user input;
      */
     public void makeSearch(String searched) {
         if (!searched.isEmpty()) {
@@ -341,6 +341,9 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    /*
+     * method invoke sort() method from Service provider and update playlist according to sort result;
+     */
     public void makeSort() {
         currentDirAllFiles = ServiceProvider.sort(currentDirAllFiles, sortType);
         playListInitalization(currentDirAllFiles);

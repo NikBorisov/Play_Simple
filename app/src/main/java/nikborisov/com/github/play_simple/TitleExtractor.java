@@ -5,7 +5,7 @@ import android.net.Uri;
 
 /**
  * Created by nikolay on 14.04.16.
- * class designed for data extraction from media files
+ * class for data extraction from media files;
  */
 public class TitleExtractor {
     private static final String UNKNOWN_DESC = "Unknown";
@@ -15,20 +15,12 @@ public class TitleExtractor {
     private String album;
     private Uri titleUri;
 
-
-    /*
-     * create TitelExtractor instance
-     * @param titleUri
-     */
     public TitleExtractor(Uri titleUri) {
         this.titleUri = titleUri;
         titleRetriver = new MediaMetadataRetriever();
         titleRetriver.setDataSource(titleUri.getPath());
     }
 
-    /*
-     * extract data about title
-     */
     public String getFullTitleInfo() {
         titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);

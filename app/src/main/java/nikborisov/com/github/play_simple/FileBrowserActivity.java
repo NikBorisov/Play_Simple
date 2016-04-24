@@ -26,7 +26,7 @@ public class FileBrowserActivity extends AppCompatActivity {
     }
 
     /*
-     * make visible dirs with media inside
+     * agregate dirs, that contain media files;
      */
     public void initDirList() {
         currentDir = Environment.getExternalStorageDirectory(); //start directory is root dir
@@ -46,7 +46,7 @@ public class FileBrowserActivity extends AppCompatActivity {
     }
 
     /*
-     * Add selected dir content to playlist
+     * Add selected dir to playlist;
      */
     public void addAllToPlaylist(View view) {
         if (selectedDir == null)

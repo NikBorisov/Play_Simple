@@ -17,7 +17,7 @@ public class ServiceProvider {
     private static final Pattern checkIsFormatSuppoerted = Pattern.compile("([^\\s]+(\\.(?i)(mp3|wav|ogg|aac|flac))$)");
 
     /*
-     * returns formatted playback time for total time view and current playback time view
+     * returns formatted playback time for total time view and current playback time view;
      */
     public static String formatPlaybackTime(int millsTime) {
         return String.format("%02d:%02d",
@@ -27,8 +27,8 @@ public class ServiceProvider {
     }
 
     /*
-     * if @param filesOrDirs true, return String[] of music files names, that represented in selected directory
-     * if @param filesOrDirs false, return String[] of dirs names with music files inside
+     * if @param filesOrDirs true, return String[] of music files names, that represented in selected directory;
+     * if @param filesOrDirs false, return String[] of dirs names with music files inside;
      */
     public static String[] getMediaFiles(File dirName, boolean filesOrDirs) {
         ArrayList<File> buffer = new ArrayList<>();
@@ -44,7 +44,7 @@ public class ServiceProvider {
     }
 
     /*
-     * agregate all music files in selected dir and subdirs
+     * agregate all music files in selected dir and subdirs;
      */
     public static ArrayList<File> fileNamesAgregator(File parentDir) {
         ArrayList<File> filesList = new ArrayList<>();
@@ -62,7 +62,7 @@ public class ServiceProvider {
     }
 
     /*
-     * agregate dirs with media files inside
+     * agregate dirs with media files inside;
      */
     public static ArrayList<File> dirsWithMusicAgregator(File parentDir) {
         ArrayList<File> filesList = new ArrayList<>();
@@ -81,6 +81,9 @@ public class ServiceProvider {
         return filesList;
     }
 
+    /*
+     * sort files by title, artist, album or duration (user choiced);
+     */
     public static File[] sort(File[] songList, SortType sortType) {
         if (sortType == SortType.BYDURATION) {
             int itemOneDuration;

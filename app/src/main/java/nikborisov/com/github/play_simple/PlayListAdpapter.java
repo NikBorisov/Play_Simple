@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /*
@@ -23,12 +22,10 @@ public class PlayListAdpapter extends ArrayAdapter<String> {
     }
 
     /*
-     * customsize items of playlist listView(MainActivity)
+     * customsize items of playlist listView(MainActivity);
      */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
-
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View playListView = inflater.inflate(R.layout.playlist_list_item, parent, false);
         TextView title = (TextView) playListView.findViewById(R.id.listItemTitle);
