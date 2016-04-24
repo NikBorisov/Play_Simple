@@ -9,7 +9,10 @@ import android.net.Uri;
  */
 public class TitleExtractor {
     private static final String UNKNOWN_DESC = "Unknown";
-    MediaMetadataRetriever titleRetriver;
+    private MediaMetadataRetriever titleRetriver;
+    private String titleName;
+    private String artist;
+    private String album;
     private Uri titleUri;
 
 
@@ -27,9 +30,9 @@ public class TitleExtractor {
      * extract data about title
      */
     public String getFullTitleInfo() {
-        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
-        String artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        String album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
         if (titleName == null)
             titleName = UNKNOWN_DESC;
         if (artist == null)
@@ -49,24 +52,24 @@ public class TitleExtractor {
     }
 
     public String getTitleOnly() {
-        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
+        titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         if (titleName == null)
             return UNKNOWN_DESC;
         else return titleName;
     }
 
     public String getArtistOnly() {
-        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
-        if (titleName == null)
+        artist = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        if (artist == null)
             return UNKNOWN_DESC;
-        else return titleName;
+        else return artist;
     }
 
     public String getAlbumOnly() {
-        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
-        if (titleName == null)
+        album = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        if (album == null)
             return UNKNOWN_DESC;
-        else return titleName;
+        else return album;
     }
 
 

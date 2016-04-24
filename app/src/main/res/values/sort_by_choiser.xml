@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="userChoice">
-        <item>Title</item>
-        <item>Album</item>
-        <item>Artist</item>
-        <item>Duration</item>
+        <item>Sort by Title</item>
+        <item>Sort by Album</item>
+        <item>Sort by Artist</item>
+        <item>Sort by Duration</item>
     </string-array>
 </resources>

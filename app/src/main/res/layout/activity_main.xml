@@ -18,13 +18,14 @@
         android:orientation="horizontal">
 
         <ImageView
-            android:layout_width="32dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
+            android:layout_weight="1"
             android:src="@drawable/ic_search_black" />
 
         <EditText
             android:id="@+id/searchEditText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="5"
             android:hint="search..."
@@ -35,9 +36,9 @@
 
         <Spinner
             android:id="@+id/sortBy"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="5"></Spinner>
+            android:layout_weight="5" />
 
     </LinearLayout>
 
