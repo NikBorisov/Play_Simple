@@ -51,6 +51,10 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.dirName = changeDir;
     }
 
+    public static int getCurrentSongNumber() {
+        return currenSongNumber;
+    }
+
     public boolean isPlayed() {
         return playPauseSwitcher;
     }
@@ -69,7 +73,7 @@ public class MainActivity extends AppCompatActivity {
     public void startUp() {
         searchAction = (EditText) findViewById(R.id.searchEditText);
         /*
-         * handle "search" user input from editText "searchAction";
+         * handle user input from editText "searchAction";
          */
         searchAction.setOnEditorActionListener(new TextView.OnEditorActionListener() {
             @Override
@@ -94,7 +98,6 @@ public class MainActivity extends AppCompatActivity {
                 R.array.userChoice, android.R.layout.simple_spinner_item);
         sortByAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         sortChoiser.setAdapter(sortByAdapter);
-        //invoke makeSort method by user choice
         sortChoiser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -150,6 +153,7 @@ public class MainActivity extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 currenSongNumber = position;
                 playerInitalization(position);
+
             }
         });
     }
@@ -179,6 +183,9 @@ public class MainActivity extends AppCompatActivity {
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getFullTitleInfo());
         setPlayed(true);
         songListView.setSelection(currenSongNumber);
+        //block don't work
+        songListView.refreshDrawableState();
+        //end of block
         playing();
     }
 
