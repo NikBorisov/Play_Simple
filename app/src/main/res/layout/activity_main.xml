@@ -148,7 +148,7 @@
             android:layout_weight="1"
             android:background="@drawable/buttons_selector"
             android:onClick="playPauseAction"
-            android:src="@drawable/play" />
+            android:src="@drawable/played" />
 
         <ImageButton
             android:id="@+id/nextSong"

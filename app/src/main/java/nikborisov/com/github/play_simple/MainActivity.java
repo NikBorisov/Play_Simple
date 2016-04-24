@@ -17,6 +17,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
@@ -34,6 +35,7 @@ public class MainActivity extends AppCompatActivity {
     private Spinner sortChoiser;
     private SortType sortType;
     private SeekBar songSeeek;
+    private ImageButton playPauseButton;
     private TextView currentTitleInfo;
     private TextView totalPlayingTime;
     private TextView currentPlayingTime;
@@ -120,6 +122,7 @@ public class MainActivity extends AppCompatActivity {
         });
 
         songSeeek = (SeekBar) findViewById(R.id.seekBar);
+        playPauseButton = (ImageButton) findViewById(R.id.pausePlaySong);
         currentTitleInfo = (TextView) findViewById(R.id.songTitle);
         totalPlayingTime = (TextView) findViewById(R.id.totalTime);
         currentPlayingTime = (TextView) findViewById(R.id.currentTime);
@@ -210,12 +213,14 @@ public class MainActivity extends AppCompatActivity {
                     //next line syns player with seekBar
                     mainPlayer.seekTo(songSeeek.getProgress());
                     mainPlayer.start();
+                    playPauseButton.setImageResource(R.drawable.pause);
                     progress();
 
                 } catch (IllegalStateException ex) {
                     ex.printStackTrace();
                 }
             } else {
+                playPauseButton.setImageResource(R.drawable.played);
                 mainPlayer.pause();
             }
         }
@@ -291,6 +296,7 @@ public class MainActivity extends AppCompatActivity {
             songSeeek.setProgress(0);
             mainPlayer.seekTo(songSeeek.getProgress());
             currentPlayingTime.setText(ServiceProvider.formatPlaybackTime(mainPlayer.getCurrentPosition()));
+            playPauseButton.setImageResource(R.drawable.played);
             mainPlayer.pause();
         }
     }
