@@ -12,6 +12,7 @@ public class TitleExtractor {
     MediaMetadataRetriever titleRetriver;
     private Uri titleUri;
 
+
     /*
      * create TitelExtractor instance
      * @param titleUri
@@ -38,9 +39,10 @@ public class TitleExtractor {
         return titleName + "\n" + artist + "\n" + album;
     }
 
-    /*
-     * returns formatted track duration
-     */
+    public int getDurationValue() {
+        return Integer.parseInt(titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
+    }
+
     public String getDuration() {
         int titleDuration = Integer.parseInt(titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_DURATION));
         return ServiceProvider.formatPlaybackTime(titleDuration);

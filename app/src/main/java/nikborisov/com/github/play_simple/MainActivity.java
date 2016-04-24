@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     private TextView currentPlayingTime;
     private ListView songListView;
     private File[] currentDirAllFiles;
-    private boolean isPlayed;
+    private boolean playPauseSwitcher;
 
     public static MediaPlayer getPlayer() {
         return mainPlayer;
@@ -50,11 +50,11 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public boolean isPlayed() {
-        return isPlayed;
+        return playPauseSwitcher;
     }
 
     public void setPlayed(boolean played) {
-        isPlayed = played;
+        playPauseSwitcher = played;
     }
 
     @Override
@@ -102,6 +102,9 @@ public class MainActivity extends AppCompatActivity {
                         break;
                     case 2:
                         sortType = SortType.BYARTIST;
+                        break;
+                    case 3:
+                        sortType = SortType.BYDURATION;
                         break;
                     default:
                         sortType = SortType.BYTITLE;
