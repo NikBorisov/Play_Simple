@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -95,11 +96,17 @@ public class MainActivity extends AppCompatActivity {
         sortChoiser.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                for (SortType choiceSortType : SortType.values()) {
-                    if (choiceSortType.ordinal() == position)
-                        sortType = choiceSortType;
-                    break;
+                switch (position) {
+                    case 1:
+                        sortType = SortType.BYALBUM;
+                        break;
+                    case 2:
+                        sortType = SortType.BYARTIST;
+                        break;
+                    default:
+                        sortType = SortType.BYTITLE;
                 }
+                Log.e("Current sort type is ", sortType.toString());//for test only REMOVE LATER
                 makeSort();
             }
 
@@ -310,8 +317,9 @@ public class MainActivity extends AppCompatActivity {
     public void makeSearch(String searched) {
         if (!searched.isEmpty()) {
             ArrayList<File> matches = new ArrayList<>();
+            TitleExtractor extractor;
             for (int i = 0; i < currentDirAllFiles.length; i++) {
-                TitleExtractor extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
+                extractor = new TitleExtractor(Uri.fromFile(currentDirAllFiles[i]));
                 String checkCoincedence = extractor.getFullTitleInfo();
                 if (checkCoincedence.toLowerCase().contains(searched.toLowerCase()))
                     matches.add(currentDirAllFiles[i]);
@@ -325,7 +333,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void makeSort() {
-
-
+        currentDirAllFiles = ServiceProvider.sort(currentDirAllFiles, sortType);
+        playListInitalization(currentDirAllFiles);
     }
 }

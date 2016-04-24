@@ -46,11 +46,27 @@ public class TitleExtractor {
         return ServiceProvider.formatPlaybackTime(titleDuration);
     }
 
-    public String getTitle() {
+    public String getTitleOnly() {
         String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_TITLE);
         if (titleName == null)
             return UNKNOWN_DESC;
         else return titleName;
     }
+
+    public String getArtistOnly() {
+        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ARTIST);
+        if (titleName == null)
+            return UNKNOWN_DESC;
+        else return titleName;
+    }
+
+    public String getAlbumOnly() {
+        String titleName = titleRetriver.extractMetadata(MediaMetadataRetriever.METADATA_KEY_ALBUM);
+        if (titleName == null)
+            return UNKNOWN_DESC;
+        else return titleName;
+    }
+
+
 
 }
