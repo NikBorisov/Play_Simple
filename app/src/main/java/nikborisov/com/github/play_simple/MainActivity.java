@@ -60,16 +60,11 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        /*Uri uri = getIntent().getData();
-        File file = new File(uri.getPath());
-        if (file != null) {
-            String path = file.getAbsolutePath();
-            changeCurrentDir(new File(path));
-        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startUp();
     }
+
 
     public void startUp() {
         searchAction = (EditText) findViewById(R.id.searchEditText);
@@ -184,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
         setPlayed(true);
         songListView.setSelection(currenSongNumber);
         playing();
+
     }
 
     /*
