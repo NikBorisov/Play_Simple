@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Play_Simple</string>
+    <string name="app_name">PlaySimple</string>
     <string name="playString">play</string>
     <string name="pauseString">pause</string>
     <string name="title_name">Title name</string>
