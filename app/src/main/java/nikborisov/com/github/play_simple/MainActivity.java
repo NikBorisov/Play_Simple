@@ -31,7 +31,6 @@ public class MainActivity extends AppCompatActivity {
     private static int currenSongNumber = -1;
     private final Handler handler = new Handler();
     private EditText searchAction;
-    private Spinner sortChoiser;
     private SortType sortType;
     private SeekBar songSeeek;
     private ImageButton playPauseButton;
@@ -89,7 +88,7 @@ public class MainActivity extends AppCompatActivity {
         /*
          * setup spinner for user "sort by" choice;
          */
-        sortChoiser = (Spinner) findViewById(R.id.sortBy);
+        Spinner sortChoiser = (Spinner) findViewById(R.id.sortBy);
         ArrayAdapter<CharSequence> sortByAdapter = ArrayAdapter.createFromResource(this,
                 R.array.userChoice, android.R.layout.simple_spinner_item);
         sortByAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);

@@ -13,10 +13,8 @@ public class TitleExtractor {
     private String titleName;
     private String artist;
     private String album;
-    private Uri titleUri;
 
     public TitleExtractor(Uri titleUri) {
-        this.titleUri = titleUri;
         titleRetriver = new MediaMetadataRetriever();
         titleRetriver.setDataSource(titleUri.getPath());
     }
