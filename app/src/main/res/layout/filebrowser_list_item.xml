@@ -17,7 +17,7 @@
         android:layout_alignBottom="@id/listItemIcon"
         android:layout_margin="8dp"
         android:layout_toRightOf="@id/listItemIcon"
-        android:text="Folder name"
+        android:text="@string/folder_name"
         android:textSize="24sp" />
 
 </RelativeLayout>

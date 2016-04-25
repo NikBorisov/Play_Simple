@@ -5,7 +5,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 /*
@@ -29,16 +28,10 @@ public class PlayListAdpapter extends ArrayAdapter<String> {
     public View getView(int position, View convertView, ViewGroup parent) {
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View playListView = inflater.inflate(R.layout.playlist_list_item, parent, false);
-        ImageView listItemIcon = (ImageView) playListView.findViewById(R.id.listItemIcon);
         TextView title = (TextView) playListView.findViewById(R.id.listItemTitle);
         TextView autor = (TextView) playListView.findViewById(R.id.listItemArtist);
         TextView album = (TextView) playListView.findViewById(R.id.listItemAlbum);
         TextView duration = (TextView) playListView.findViewById(R.id.listItemDuration);
-        //block don;t work
-        if (position == MainActivity.getCurrentSongNumber()) {
-            listItemIcon.setBackgroundResource(R.drawable.note);
-        }
-        //end of block
         String[] currentItem = values[position].split("\n");
         title.setText(currentItem[0]);
         autor.setText(currentItem[1]);

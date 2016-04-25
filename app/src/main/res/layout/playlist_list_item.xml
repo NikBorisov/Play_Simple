@@ -17,7 +17,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/listItemIcon"
-        android:text="Title name"
+        android:text="@string/title_name"
         android:textSize="16sp" />
 
     <TextView
@@ -26,7 +26,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listItemTitle"
         android:layout_toRightOf="@id/listItemIcon"
-        android:text="Artist name"
+        android:text="@string/artist_name"
         android:textSize="12sp" />
 
     <TextView
@@ -35,7 +35,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/listItemArtist"
         android:layout_toRightOf="@id/listItemIcon"
-        android:text="Album name"
+        android:text="@string/album_name"
         android:textSize="12sp" />
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_marginRight="8dp"
-        android:text="00:00"
+        android:text="@string/zero_time"
         android:textSize="16sp" />
 
 

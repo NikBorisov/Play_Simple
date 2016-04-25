@@ -2,4 +2,15 @@
     <string name="app_name">Play_Simple</string>
     <string name="playString">play</string>
     <string name="pauseString">pause</string>
+    <string name="title_name">Title name</string>
+    <string name="artist_name">Artist name</string>
+    <string name="album_name">Album name</string>
+    <string name="zero_time">00:00</string>
+    <string name="folder_name">Folder name</string>
+    <string name="searchHint">search...</string>
+    <string name="tap_to_select_song">Tap to select song...</string>
+    <string name="playing_time">Playing time:</string>
+    <string name="total_time">Total time:</string>
+    <string name="play_from">play from...</string>
+    <string name="see_all">see all</string>
 </resources>

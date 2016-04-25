@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
@@ -51,10 +50,6 @@ public class MainActivity extends AppCompatActivity {
         MainActivity.dirName = changeDir;
     }
 
-    public static int getCurrentSongNumber() {
-        return currenSongNumber;
-    }
-
     public boolean isPlayed() {
         return playPauseSwitcher;
     }
@@ -65,6 +60,12 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        /*Uri uri = getIntent().getData();
+        File file = new File(uri.getPath());
+        if (file != null) {
+            String path = file.getAbsolutePath();
+            changeCurrentDir(new File(path));
+        }*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         startUp();
@@ -114,7 +115,6 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         sortType = SortType.BYTITLE;
                 }
-                Log.e("Current sort type is ", sortType.toString());//for test only REMOVE LATER
                 makeSort();
             }
 
@@ -183,9 +183,6 @@ public class MainActivity extends AppCompatActivity {
         currentTitleInfo.setText(new TitleExtractor(Uri.fromFile(currentDirAllFiles[songId])).getFullTitleInfo());
         setPlayed(true);
         songListView.setSelection(currenSongNumber);
-        //block don't work
-        songListView.refreshDrawableState();
-        //end of block
         playing();
     }
 
