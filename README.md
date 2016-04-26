@@ -1,2 +1,2 @@
 # Play_Simple
--Media player application
+Media player application.
