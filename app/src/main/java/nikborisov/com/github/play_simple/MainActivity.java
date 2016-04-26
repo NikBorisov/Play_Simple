@@ -347,4 +347,13 @@ public class MainActivity extends AppCompatActivity {
         currentDirAllFiles = ServiceProvider.sort(currentDirAllFiles, sortType);
         playListInitalization(currentDirAllFiles);
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mainPlayer != null) {
+            mainPlayer.stop();
+        }
+
+    }
 }

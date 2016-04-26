@@ -14,7 +14,7 @@ import java.util.regex.Pattern;
  */
 public class ServiceProvider {
 
-    private static final Pattern checkIsFormatSuppoerted = Pattern.compile("([^\\s]+(\\.(?i)(mp3|wav|ogg|aac|flac))$)");
+    private static final Pattern checkIsFormatSuppoerted = Pattern.compile("([^\\s]+(\\.(?i)(mp3|wav|aac|flac))$)");
 
     /*
      * returns formatted playback time for total time view and current playback time view;

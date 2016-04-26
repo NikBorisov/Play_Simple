@@ -57,4 +57,9 @@ public class FileBrowserActivity extends AppCompatActivity {
         MainActivity.changeCurrentDir(selectedDir);
         startActivity(backToMainActivity.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP));
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+    }
 }
