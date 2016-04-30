@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class MainActivity extends AppCompatActivity {
     private static MediaPlayer mainPlayer;
@@ -109,7 +110,8 @@ public class MainActivity extends AppCompatActivity {
                     default:
                         sortType = SortType.BYTITLE;
                 }
-                makeSort();
+                Arrays.sort(currentDirAllFiles, new SongComparator(sortType));
+                playListInitalization(currentDirAllFiles);
             }
 
             @Override
@@ -338,14 +340,6 @@ public class MainActivity extends AppCompatActivity {
                 playListInitalization(searchedCoincedenses);
             }
         }
-    }
-
-    /*
-     * method invoke sort() method from Service provider and update playlist according to sort result;
-     */
-    public void makeSort() {
-        currentDirAllFiles = ServiceProvider.sort(currentDirAllFiles, sortType);
-        playListInitalization(currentDirAllFiles);
     }
 
     @Override

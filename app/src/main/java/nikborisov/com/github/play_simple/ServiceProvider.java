@@ -1,7 +1,5 @@
 package nikborisov.com.github.play_simple;
 
-import android.net.Uri;
-
 import java.io.File;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -80,55 +78,5 @@ public class ServiceProvider {
         }
         return filesList;
     }
-
-    /*
-     * sort files by title, artist, album or duration (user choiced);
-     */
-    public static File[] sort(File[] songList, SortType sortType) {
-        if (sortType == SortType.BYDURATION) {
-            int itemOneDuration;
-            int itemTwoDuration;
-            for (int border = songList.length - 1; border >= 0; border--) {
-                for (int current = 0; current < border; current++) {
-                    itemOneDuration = new TitleExtractor(Uri.fromFile(songList[current])).getDurationValue();
-                    itemTwoDuration = new TitleExtractor(Uri.fromFile(songList[current + 1])).getDurationValue();
-                    if (itemOneDuration > itemTwoDuration) {
-                        File buffer = songList[current];
-                        songList[current] = songList[current + 1];
-                        songList[current + 1] = buffer;
-                    }
-                }
-            }
-            return songList;
-        } else {
-            String itemOne;
-            String itemTwo;
-            for (int border = songList.length - 1; border >= 0; border--) {
-                for (int current = 0; current < border; current++) {
-                    switch (sortType) {
-                        case BYARTIST: {
-                            itemOne = new TitleExtractor(Uri.fromFile(songList[current])).getArtistOnly();
-                            itemTwo = new TitleExtractor(Uri.fromFile(songList[current + 1])).getArtistOnly();
-                            break;
-                        }
-                        case BYALBUM: {
-                            itemOne = new TitleExtractor(Uri.fromFile(songList[current])).getAlbumOnly();
-                            itemTwo = new TitleExtractor(Uri.fromFile(songList[current + 1])).getAlbumOnly();
-                            break;
-                        }
-                        default: {
-                            itemOne = new TitleExtractor(Uri.fromFile(songList[current])).getTitleOnly();
-                            itemTwo = new TitleExtractor(Uri.fromFile(songList[current + 1])).getTitleOnly();
-                        }
-                    }
-                    if (itemOne.compareTo(itemTwo) > 0) {
-                        File buffer = songList[current];
-                        songList[current] = songList[current + 1];
-                        songList[current + 1] = buffer;
-                    }
-                }
-            }
-            return songList;
-        }
-    }
 }
+
