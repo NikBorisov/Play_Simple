@@ -29,7 +29,7 @@ public class ServiceProvider {
      * if @param filesOrDirs false, return String[] of dirs names with music files inside;
      */
     public static String[] getMediaFiles(File dirName, boolean filesOrDirs) {
-        ArrayList<File> buffer = new ArrayList<>();
+        ArrayList<File> buffer;
         if (filesOrDirs) {
             buffer = fileNamesAgregator(dirName);
         } else {
